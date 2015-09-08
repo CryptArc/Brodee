@@ -61,7 +61,7 @@ namespace BrodeStone
             }
             if (Input.GetKeyDown(KeyCode.F12))
             {
-                _handlerHub.ProcessType(HandlerType.CreateFlyingCube);
+                _handlerHub.ProcessType(HandlerType.CreateFlyingCubes);
             }
 
             if (_handlerHub.HasActions())
@@ -87,7 +87,7 @@ namespace BrodeStone
 
             _handlerHub.Register(HandlerType.CardTileAttempt, new CardTileAttemptHandler());
             _handlerHub.Register(HandlerType.PopulatePaladinDeck, new PopulatePaladinDeckHandler());
-            _handlerHub.Register(HandlerType.CreateFlyingCube, new CreateFlyingCubeHandler());
+            _handlerHub.Register(HandlerType.CreateFlyingCubes, new CreateFlyingCubesHandler());
             _handlerHub.Register(HandlerType.DestroyChildGameObjects, new DestroyChildGameObjectsHandler());
             _handlerHub.Register(HandlerType.PopUpBigTirion, new PopUpBigTirionHandler());
             _handlerHub.Register(HandlerType.PopUpTest, new PopUpTestHandler());

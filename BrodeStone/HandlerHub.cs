@@ -32,10 +32,18 @@ namespace BrodeStone
             IHandler handler;
             _typeSet.ForEach(type =>
             {
-                if (_handlers.TryGetValue(type, out handler))
+                try
                 {
-                    Logger.AppendLine(string.Format("HandlerHub.ProcessAction.{0}", type.ToString()));
-                    handler.Handle(component, previous, next);
+                    if (_handlers.TryGetValue(type, out handler))
+                    {
+                        Logger.AppendLine(string.Format("HandlerHub.ProcessAction.{0}", type.ToString()));
+                        handler.Handle(component, previous, next);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.AppendLine(string.Format("Error handling type:{0}", type.ToString()));
+                    Logger.AppendLine(e.ToString());
                 }
             });
             _typeSet.Clear();

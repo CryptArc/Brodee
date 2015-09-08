@@ -4,40 +4,45 @@ namespace BrodeStone.Handlers
 {
     public class CardTileAttemptHandler : IHandler
     {
-        private float _scale = 0.5f;
-
-        private static int _count = 0;
+        private float _scale = 0.01f;
+        
+        private GameObject _gameObjectTile;
 
         public HandlerType GetHandlerType => HandlerType.CardTileAttempt;
 
         public void Handle(GameObject component, GameState previous, GameState next)
         {
-            //var goCamera = CameraUtils.FindFirstByLayer(_parent.gameObject.layer);
-            //var posInFrontOfCamera = CameraUtils.GetPosInFrontOfCamera(goCamera, goCamera.nearClipPlane);
-            //posInFrontOfCamera.y -= 50;
-
-            _scale += (_count * 0.05f);
-            GameObject gameObject = new GameObject("MyDeckTileVisual" + _scale);
-
-            gameObject.transform.localScale = new Vector3(_scale, _scale, _scale);
-            var pos = new Vector3((_count * 1f), 0, 0);
-            gameObject.transform.localPosition = Vector3.zero;
-            DeckTrayDeckTileVisual newTileVisual = gameObject.AddComponent<DeckTrayDeckTileVisual>();
-            newTileVisual.gameObject.transform.localPosition = pos;
-            newTileVisual.MarkAsUsed();
-            newTileVisual.Show();
-            CollectionDeckSlot deckSlot = new CollectionDeckSlot
+            if (_gameObjectTile == null)
             {
-                CardID = "EX1_383",
-                Count = 1,
-                Index = 0,
-                OnSlotEmptied = slot => { },
-                Premium = CardFlair.PremiumType.GOLDEN
-            };
-            newTileVisual.SetSlot(deckSlot, false);
-            _count++;
+                var goCamera = CameraUtils.FindFirstByLayer(component.gameObject.layer);
+                var posInFrontOfCamera = CameraUtils.GetPosInFrontOfCamera(goCamera, goCamera.nearClipPlane);
+                posInFrontOfCamera.y -= 1;
 
-            gameObject.transform.SetParent(component.transform, true);
+                _gameObjectTile = new GameObject("MyDeckTileVisual");
+
+                _gameObjectTile.transform.localScale = new Vector3(_scale, _scale, _scale);
+                _gameObjectTile.transform.localPosition = posInFrontOfCamera;
+                DeckTrayDeckTileVisual newTileVisual = _gameObjectTile.AddComponent<DeckTrayDeckTileVisual>();
+                newTileVisual.MarkAsUsed();
+                newTileVisual.Show();
+                CollectionDeckSlot deckSlot = new CollectionDeckSlot
+                {
+                    CardID = "EX1_383",
+                    Count = 1,
+                    Index = 0,
+                    OnSlotEmptied = slot => { },
+                    Premium = CardFlair.PremiumType.GOLDEN
+                };
+                newTileVisual.SetSlot(deckSlot, false);
+
+                _gameObjectTile.transform.SetParent(component.transform, true);
+            }
+            else
+            {
+                var gotT = _gameObjectTile.transform;
+                Logger.AppendLine($"CardTileAttemptHandler position x:{gotT.position.x}, y:{gotT.position.y}, z:{gotT.position.z}");
+                Logger.AppendLine($"CardTileAttemptHandler localPosition x:{gotT.localPosition.x}, y:{gotT.localPosition.y}, z:{gotT.localPosition.z}");
+            }
         }
     }
 }

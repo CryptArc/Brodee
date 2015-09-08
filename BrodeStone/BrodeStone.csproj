@@ -56,7 +56,7 @@
     <Compile Include="GameState.cs" />
     <Compile Include="Handlers\DestroyChildGameObjectsHandler.cs" />
     <Compile Include="Handlers\CardTileAttemptHandler.cs" />
-    <Compile Include="Handlers\CreateFlyingCubeHandler.cs" />
+    <Compile Include="Handlers\CreateFlyingCubesHandler.cs" />
     <Compile Include="HandlerType.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="BrodeStone.cs" />

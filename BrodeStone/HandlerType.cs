@@ -3,7 +3,7 @@
     public enum HandlerType
     {
         CardTileAttempt,
-        CreateFlyingCube,
+        CreateFlyingCubes,
         DestroyChildGameObjects,
         PopulatePaladinDeck,
         PopUpBigTirion,
