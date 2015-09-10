@@ -11,7 +11,7 @@ namespace BrodeStone
 {
     public class BrodeStone : MonoBehaviour
     {
-        private readonly string _logoutput = "H:\\MyFileOutput.txt";
+        private readonly string _logoutput = "MyFileOutput.txt";
         private readonly HandlerHub _handlerHub = new HandlerHub();
         public GameObject Obj;
 
@@ -72,7 +72,7 @@ namespace BrodeStone
 
             _gameState = newGameState;
         }
-        
+
         private void Start()
         {
             Network.Get().RegisterNetHandler(PowerHistory.PacketID.ID, OnPowerHistory);
@@ -84,7 +84,6 @@ namespace BrodeStone
             popupInfo.m_text = "Just some Text. Not so bad.";
             popupInfo.m_responseDisplay = AlertPopup.ResponseDisplay.CONFIRM;
             DialogManager.Get().ShowPopup(popupInfo, null, null);
-
             _handlerHub.Register(HandlerType.CardTileAttempt, new CardTileAttemptHandler());
             _handlerHub.Register(HandlerType.PopulatePaladinDeck, new PopulatePaladinDeckHandler());
             _handlerHub.Register(HandlerType.CreateFlyingCubes, new CreateFlyingCubesHandler());
@@ -99,7 +98,7 @@ namespace BrodeStone
         }
 
         private Network.Entity _fullent;
-        
+
         private void OnPowerHistory()
         {
             try
@@ -137,8 +136,7 @@ namespace BrodeStone
                         var showEnt = (Network.HistShowEntity)history;
                         var entDef = defLoader.GetEntityDef(showEnt.Entity.CardID);
 
-                        var str = $"SHOW_ENTITY - {entDef.GetName()}";
-                        File.AppendAllText(_logoutput, str);
+                        File.AppendAllText(_logoutput, $"SHOW_ENTITY - {entDef.GetName()}");
                         File.AppendAllText(_logoutput, Environment.NewLine);
                     }
                     else
@@ -164,11 +162,21 @@ namespace BrodeStone
         private void OnGUI()
         {
             var goCamera = CameraUtils.FindFirstByLayer(gameObject.layer);
+
             var pos = CameraUtils.GetPosInFrontOfCamera(goCamera, goCamera.nearClipPlane);
-            var positionString = string.Format("{3} - x:{0} y:{1} z:{2}", pos.x, pos.y, pos.z, "goCamera");
+            var positionString = string.Format("{3} - x:{0} y:{1} z:{2}", pos.x, pos.y, pos.z, "goCamera+nearClip");
             GUI.Label(new Rect(10, 60, 100, 100), positionString);
+
             var currentScene = SceneMgr.Get().GetMode();
-            GUI.Label(new Rect(10, 120, 250, 100), $"CurrentScene:{currentScene}");
+            GUI.Label(new Rect(10, 140, 500, 100), $"CurrentScene:{currentScene}");
+
+            var mousePosition = Input.mousePosition;
+            mousePosition.z = goCamera.nearClipPlane;
+            var mouseWorldPos = goCamera.ScreenToWorldPoint(mousePosition);
+
+            GUI.Label(new Rect(10, 170, 500, 100), $"MouseWorldPos x:{mouseWorldPos.x}, y:{mouseWorldPos.y}, z:{mouseWorldPos.z}");
+
+            GUI.Label(new Rect(10, 200, 500, 100), $"MousePos x:{Input.mousePosition.x}, y:{Input.mousePosition.y}, z:{Input.mousePosition.z}");
 
         }
     }

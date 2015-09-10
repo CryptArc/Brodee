@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 
 namespace BrodeStone.Handlers
 {
@@ -39,7 +39,12 @@ namespace BrodeStone.Handlers
             }
             else
             {
+                var goCamera = CameraUtils.FindFirstByLayer(component.gameObject.layer);
+                var mousePosition = Input.mousePosition;
+                mousePosition.z = goCamera.nearClipPlane + 1.0f;
+                var mouseWorldPos = goCamera.ScreenToWorldPoint(mousePosition);
                 var gotT = _gameObjectTile.transform;
+                gotT.localPosition = mouseWorldPos;
                 Logger.AppendLine($"CardTileAttemptHandler position x:{gotT.position.x}, y:{gotT.position.y}, z:{gotT.position.z}");
                 Logger.AppendLine($"CardTileAttemptHandler localPosition x:{gotT.localPosition.x}, y:{gotT.localPosition.y}, z:{gotT.localPosition.z}");
             }

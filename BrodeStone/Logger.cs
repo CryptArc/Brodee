@@ -5,7 +5,7 @@ namespace BrodeStone
 {
     public static class Logger
     {
-        private static readonly string _logoutput = "H:\\MyFileOutput.txt";
+        private static readonly string _logoutput = "MyFileOutput.txt";
 
         static Logger()
         {
