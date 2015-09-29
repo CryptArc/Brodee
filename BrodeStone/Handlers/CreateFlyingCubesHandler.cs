@@ -1,18 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using BrodeStone.Triggers;
 using UnityEngine;
 
 namespace BrodeStone.Handlers
 {
-    public class CreateFlyingCubesHandler : IHandler
+    public class CreateFlyingCubesHandler : Handler
     {
-        public HandlerType GetHandlerType => HandlerType.CreateFlyingCubes;
-
-        public void Handle(GameObject component, GameState previous, GameState next)
+        public override Trigger[] SpecificHandle(GameState previous, GameState next)
         {
             try
             {
                 //gameObject = CreateObjectBasedOnPrefab<Notification>(NotificationManager.Get().popupTextPrefab);
-                CreateFlyingCubes(component);
+                CreateFlyingCubes(Parent, next.Cubes);
             }
             catch (Exception e)
             {
@@ -23,14 +23,14 @@ namespace BrodeStone.Handlers
                 DialogManager.Get().ShowPopup(popupInfo, null, null);
 
             }
+            return EmptyTriggers;
         }
 
-        public void CreateFlyingCubes(GameObject gameObject)
+        public void CreateFlyingCubes(GameObject gameObject, List<GameObject> list)
         {
 
             var goCamera = CameraUtils.FindFirstByLayer(gameObject.layer);
             var basePos = CameraUtils.GetPosInFrontOfCamera(goCamera, goCamera.nearClipPlane);
-
 
             float startVal = 30.0f;
             float inc = startVal / 10.0f;
@@ -46,9 +46,10 @@ namespace BrodeStone.Handlers
                     cube.AddComponent<Rigidbody>();
                     cube.transform.position = pos;
                     cube.transform.SetParent(gameObject.transform, true);
+                    list.Add(cube);
                 }
             }
-            Logger.AppendLine(string.Format("CreateFlyingCubes() gameObject.layer:{0}", gameObject.layer));
+            Logger.AppendLine($"CreateFlyingCubes() gameObject.layer:{gameObject.layer}");
         }
     }
 }

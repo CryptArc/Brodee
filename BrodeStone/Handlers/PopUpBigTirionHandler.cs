@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using BrodeStone.Triggers;
+using UnityEngine;
 
 namespace BrodeStone.Handlers
 {
-    public class PopUpBigTirionHandler : IHandler
+    public class PopUpBigTirionHandler : Handler
     {
-        public HandlerType GetHandlerType => HandlerType.PopUpBigTirion;
-
-        public void Handle(GameObject component, GameState previous, GameState next)
+        public override Trigger[] SpecificHandle(GameState previous, GameState next)
         {
             var cardDef = DefLoader.Get().GetCardDef("EX1_383");
             var entDef = DefLoader.Get().GetEntityDef("EX1_383");
@@ -24,6 +23,8 @@ namespace BrodeStone.Handlers
             {
                 CollectionDeckTray.Get().GetDeckBigCard().Show(entDef, cardFlair, cardDef, sourcePos);
             }
+
+            return EmptyTriggers;
         }
     }
 }

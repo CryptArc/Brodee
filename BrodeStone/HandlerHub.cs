@@ -1,52 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using BrodeStone.Handlers;
+using BrodeStone.Triggers;
 using UnityEngine;
 
 namespace BrodeStone
 {
     public class HandlerHub
     {
-        private readonly Dictionary<HandlerType, IHandler> _handlers = new Dictionary<HandlerType, IHandler>();
-        private readonly HashSet<HandlerType> _typeSet = new HashSet<HandlerType>();
+        private readonly GameObject _parent;
+        private readonly Dictionary<Type, List<IHandler>> _handlers = new Dictionary<Type, List<IHandler>>();
 
-        public bool HasActions()
+        public HandlerHub(GameObject parent)
         {
-            return _typeSet.Count > 0;
+            _parent = parent;
         }
 
-        public void Register(HandlerType type, IHandler handler)
+        public void RegisterOnTrigger<T>(Handler handler, ScenesToProcessOn scenesToProcessOn) where T : Trigger
         {
+            var type = typeof(T);
             if (!_handlers.ContainsKey(type))
             {
-                _handlers.Add(type, handler);
+                _handlers.Add(type, new List<IHandler>());
             }
+            handler.Setup(_parent);
+            _handlers[type].Add(handler);
         }
 
-        public void ProcessType(HandlerType type)
+        public void Register(Handler handler, HowOftenToProcess howOftenToProcess, ScenesToProcessOn scenesToProcessOn)
         {
-            _typeSet.Add(type);
+            
         }
 
-        public void ProcessActions(GameObject component, GameState previous, GameState next)
+        public void ProcessActions(GameState previous, GameState next)
         {
-            IHandler handler;
-            _typeSet.ForEach(type =>
+            _handlers.ForEach(type =>
             {
-                try
+                foreach (var handler in type.Value)
                 {
-                    if (_handlers.TryGetValue(type, out handler))
+                    try
                     {
-                        Logger.AppendLine(string.Format("HandlerHub.ProcessAction.{0}", type.ToString()));
-                        handler.Handle(component, previous, next);
+                        handler.SpecificHandle(previous, next);
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.AppendLine($"Error handling type:{type.ToString()} handler:{handler.GetType()}");
+                        Logger.AppendLine(e.ToString());
                     }
                 }
-                catch (Exception e)
-                {
-                    Logger.AppendLine(string.Format("Error handling type:{0}", type.ToString()));
-                    Logger.AppendLine(e.ToString());
-                }
             });
-            _typeSet.Clear();
         }
     }
 }

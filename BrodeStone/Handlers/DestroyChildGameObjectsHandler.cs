@@ -1,24 +1,25 @@
+using BrodeStone.Triggers;
 using UnityEngine;
 
 namespace BrodeStone.Handlers
 {
-    public class DestroyChildGameObjectsHandler : IHandler
+    public class DestroyChildGameObjectsHandler : Handler
     {
-        public HandlerType GetHandlerType => HandlerType.DestroyChildGameObjects;
 
-        public void Handle(GameObject component, GameState previous, GameState next)
+        public override Trigger[] SpecificHandle(GameState previous, GameState next)
         {
-            var childCount = component.transform.childCount;
-            Logger.AppendLine(string.Format("DestroyChildGameObjectsHandler Start childCount:{0}",childCount));
+            var childCount = next.Cubes.Count;
+            Logger.AppendLine($"DestroyChildGameObjectsHandler Start childCount:{childCount}");
             if (childCount > 0)
             {
-                foreach (Transform transform in component.transform)
+                foreach (GameObject cube in next.Cubes)
                 {
-                    Object.Destroy(transform.gameObject);
+                    Object.Destroy(cube);
                 }
-                
+                next.Cubes.Clear();
             }
-            Logger.AppendLine(string.Format("DestroyChildGameObjectsHandler End childCount:{0}", component.transform.childCount));
+            Logger.AppendLine(string.Format("DestroyChildGameObjectsHandler End childCount:{0}", Parent.transform.childCount));
+            return EmptyTriggers;
         }
     }
 }
