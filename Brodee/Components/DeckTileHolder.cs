@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace BrodeStone
+namespace Brodee.Components
 {
     public class TileWrapper
     {

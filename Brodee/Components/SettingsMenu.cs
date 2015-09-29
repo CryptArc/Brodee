@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BrodeStone
+namespace Brodee.Components
 {
     public class SettingsMenu : ButtonListMenu
     {
@@ -13,7 +13,7 @@ namespace BrodeStone
             base.Awake();
             _concedeButton = CreateMenuButton("ConcedeButton", "GLOBAL_CONCEDE", ConcedeButtonPressed);
             _resumeButton = CreateMenuButton("ResumeButton", "GLOBAL_RESUME_GAME", ResumeButtonPressed);
-            m_menu.m_headerText.Text = "BrodeStone Menu";
+            m_menu.m_headerText.Text = "Brodee Menu";
             Logger.AppendLine("SettingsMenu Awake Finish");
         }
 

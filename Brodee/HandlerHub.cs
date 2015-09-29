@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using BrodeStone.Handlers;
-using BrodeStone.Triggers;
+using Brodee.Handlers;
+using Brodee.Triggers;
 using UnityEngine;
 
-namespace BrodeStone
+namespace Brodee
 {
     public class HandlerHub
     {

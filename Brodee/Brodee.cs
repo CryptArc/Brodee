@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-using BrodeStone.Handlers;
-using BrodeStone.Triggers;
+using Brodee.Components;
+using Brodee.Handlers;
+using Brodee.Triggers;
 using UnityEngine;
 
-namespace BrodeStone
+namespace Brodee
 {
-    public class BrodeStone : MonoBehaviour
+    public class Brodee : MonoBehaviour
     {
         private HandlerHub _handlerHub;
         public GameObject Obj;
@@ -62,7 +63,7 @@ namespace BrodeStone
         }
 
         private void Awake() => _gameState = new GameState();
-        private void OnDestroy() => Logger.AppendLine("BrodeStone.OnDestroy()");
+        private void OnDestroy() => Logger.AppendLine("Brodee.OnDestroy()");
     }
 }
 

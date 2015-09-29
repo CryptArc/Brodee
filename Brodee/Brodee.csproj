@@ -8,8 +8,8 @@
     <ProjectGuid>{FFF1924F-019B-40B6-8BFD-360024ECFFE1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BrodeStone</RootNamespace>
-    <AssemblyName>BrodeStone</AssemblyName>
+    <RootNamespace>Brodee</RootNamespace>
+    <AssemblyName>Brodee</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
@@ -65,7 +65,7 @@
     <Compile Include="Handlers\SettingsMenuHandler.cs" />
     <Compile Include="KeyPressedHelper.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="BrodeStone.cs" />
+    <Compile Include="Brodee.cs" />
     <Compile Include="HandlerHub.cs" />
     <Compile Include="Handlers\Handler.cs" />
     <Compile Include="Loader.cs" />

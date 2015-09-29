@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
-using BrodeStone.Triggers;
+using Brodee.Triggers;
 
-namespace BrodeStone.Handlers
+namespace Brodee.Handlers
 {
     public class PopulatePaladinDeckHandler : Handler
     {

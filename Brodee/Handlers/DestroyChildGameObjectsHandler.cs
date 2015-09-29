@@ -1,7 +1,7 @@
-using BrodeStone.Triggers;
+using Brodee.Triggers;
 using UnityEngine;
 
-namespace BrodeStone.Handlers
+namespace Brodee.Handlers
 {
     public class DestroyChildGameObjectsHandler : Handler
     {

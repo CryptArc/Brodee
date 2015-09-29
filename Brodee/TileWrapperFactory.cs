@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Brodee.Components;
+using UnityEngine;
 
-namespace BrodeStone
+namespace Brodee
 {
     public static class TileWrapperFactory
     {

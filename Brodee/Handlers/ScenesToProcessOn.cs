@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BrodeStone.Handlers
+namespace Brodee.Handlers
 {
     [Flags]
     public enum ScenesToProcessOn

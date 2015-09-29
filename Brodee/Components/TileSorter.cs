@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BrodeStone
+namespace Brodee.Components
 {
     public class TileSorter : IComparer<TileWrapper>
     {

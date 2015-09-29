@@ -1,10 +1,10 @@
 ﻿//using System;
 //using System.Collections.Generic;
-//using BrodeStone.Triggers;
+//using Brodee.Triggers;
 //using PegasusGame;
 //using UnityEngine;
 
-//namespace BrodeStone
+//namespace Brodee
 //{
 
 //    public class NetworkEntityHandler : Releaser

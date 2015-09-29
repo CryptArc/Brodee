@@ -1,7 +1,8 @@
-﻿using BrodeStone.Triggers;
+﻿using Brodee.Components;
+using Brodee.Triggers;
 using UnityEngine;
 
-namespace BrodeStone.Handlers
+namespace Brodee.Handlers
 {
     public class SettingsMenuHandler : Handler
     {

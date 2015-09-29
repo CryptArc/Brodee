@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BrodeStone
+namespace Brodee
 {
     public static class KeyPressedHelper
     {

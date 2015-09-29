@@ -1,5 +1,5 @@
-# BrodeStone
-Unity Addon for Hearthstone
+# Brodee
+In-Game Addon(s) for Hearthstone
 
 ## Building
 When building you need set your references to Unity and Hearthstone assemblies, located in: `Hearthstone\Hearthstone_Data\Managed`

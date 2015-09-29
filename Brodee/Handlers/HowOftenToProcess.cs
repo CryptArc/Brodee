@@ -1,4 +1,4 @@
-﻿namespace BrodeStone.Handlers
+﻿namespace Brodee.Handlers
 {
     public enum HowOftenToProcess
     {

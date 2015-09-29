@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace BrodeStone
+namespace Brodee
 {
     public static class Logger
     {

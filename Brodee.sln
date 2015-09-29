@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrodeStone", "BrodeStone\BrodeStone.csproj", "{FFF1924F-019B-40B6-8BFD-360024ECFFE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brodee", "Brodee\Brodee.csproj", "{FFF1924F-019B-40B6-8BFD-360024ECFFE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Launcher\Launcher.csproj", "{328C2846-290A-4C59-9A51-14FD43F269BF}"
 EndProject

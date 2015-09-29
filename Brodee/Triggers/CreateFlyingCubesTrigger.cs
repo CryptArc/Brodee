@@ -1,4 +1,4 @@
-﻿namespace BrodeStone.Triggers
+﻿namespace Brodee.Triggers
 {
     public class CreateFlyingCubesTrigger : Trigger
     {
