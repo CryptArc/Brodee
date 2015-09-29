@@ -19,7 +19,7 @@ namespace Brodee
         {
             var newGameState = new GameState
             {
-                Mode = SceneMgr.Get().GetMode(),
+                Mode = SceneMgr.Get().GetMode().MapToScene(),
                 Cubes = _gameState.Cubes ?? new List<GameObject>()
             };
             KeyPressedHelper.PopulateGameState(newGameState);
@@ -30,21 +30,7 @@ namespace Brodee
                 Obj.transform.SetParent(gameObject.transform);
             }
 
-            if (Time.frameCount % 60 == 0)
-            {
-                _handlerHub.ProcessActions(_gameState, newGameState);
-                if (global::GameState.Get() != null)
-                {
-                    var handCards = global::GameState.Get().GetCurrentPlayer().GetHandZone().GetCards();
-                    Logger.AppendLine("Attempting to set hand cards gem tint to green");
-                    foreach (var handCard in handCards)
-                    {
-                        Logger.AppendLine($"Attempting to hand card:{handCard.GetEntity().GetName()} gem tint to green");
-                        var col = Color.green;
-                        handCard?.GetActor()?.m_rarityGemMesh?.renderer?.material?.SetColor("_tint", col);
-                    }
-                }
-            }
+            _handlerHub.ProcessActions(_gameState, newGameState);
 
             _gameState = newGameState;
         }
@@ -58,8 +44,15 @@ namespace Brodee
             DialogManager.Get().ShowPopup(popupInfo, null, null);
 
             _handlerHub = new HandlerHub(gameObject);
-            _handlerHub.RegisterOnTrigger<CreateFlyingCubesTrigger>(new CreateFlyingCubesHandler(), ScenesToProcessOn.All);
-            _handlerHub.Register(new CreateFlyingCubesHandler(), HowOftenToProcess.EverySecond, ScenesToProcessOn.All);
+            _handlerHub.RegisterOnTrigger<CreateFlyingCubesTrigger>(new CreateFlyingCubesHandler(), Handlers.Scene.All);
+            //_handlerHub.Register(new CreateFlyingCubesHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.All);
+            _handlerHub.Register(new CardHandGemColourChangeHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.GamePlay);
+
+            _gameState = new GameState
+            {
+                Mode = Handlers.Scene.Unknown,
+                Cubes = new List<GameObject>()
+            };
         }
 
         private void Awake() => _gameState = new GameState();

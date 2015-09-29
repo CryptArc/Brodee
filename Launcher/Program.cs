@@ -10,7 +10,7 @@ namespace Launcher
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Brodestone");
+            Console.WriteLine("Brodee");
             Console.WriteLine("Hit anything to stop looking(not your cat)");
             Console.Write("Watching for Hearthstone...");
             ManualResetEventSlim resetEventSlim = new ManualResetEventSlim();
@@ -25,7 +25,7 @@ namespace Launcher
                         Console.Write("Found Hearthstone! giving it a sec");
                         Thread.Sleep(6000);
                         var process = Process.Start("mono-injector\\mono-injector.exe",
-                            "-dll BrodeStone.dll -target hearthstone.exe -namespace BrodeStone -class Loader -method Load");
+                            "-dll Brodee.dll -target hearthstone.exe -namespace Brodee -class Loader -method Load");
                         if (process != null && process.WaitForExit(10000))
                         {
                             var exitCode = process.ExitCode;

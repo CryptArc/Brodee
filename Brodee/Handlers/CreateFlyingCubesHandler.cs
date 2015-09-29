@@ -28,7 +28,8 @@ namespace Brodee.Handlers
 
         public void CreateFlyingCubes(GameObject gameObject, List<GameObject> list)
         {
-
+            Logger.AppendLine($"CreateFlyingCubes() gameObject.layer:{gameObject.layer}");
+            Logger.AppendLine($"CreateFlyingCubes() gameObject.layer:{list.Count}");
             var goCamera = CameraUtils.FindFirstByLayer(gameObject.layer);
             var basePos = CameraUtils.GetPosInFrontOfCamera(goCamera, goCamera.nearClipPlane);
 
@@ -49,7 +50,6 @@ namespace Brodee.Handlers
                     list.Add(cube);
                 }
             }
-            Logger.AppendLine($"CreateFlyingCubes() gameObject.layer:{gameObject.layer}");
         }
     }
 }
