@@ -73,14 +73,17 @@ namespace Brodee
             {
                 var trigger = _triggersQueue.Dequeue();
                 var type = trigger.GetType();
-
+                Logger.AppendLine($"Attempting to trigger type:{type}");
                 if (_triggerHandlers.TryGetValue(type, out handlerList))
                 {
                     foreach (var handlerItem in handlerList)
                     {
-                        if (!handlerItem.Scene.IsSet(next.Mode))
-                            return;
-                        ExecuteHandler(handlerItem, previous, next);
+                        Logger.AppendLine($"Attempting to handler:{handlerItem.Handler.GetType()}");
+                        //if (handlerItem.Scene.IsSet(next.Mode)) //TODO: Fix
+                        {
+                            Logger.AppendLine($"Executing handler:{handlerItem.Handler.GetType()}");
+                            ExecuteHandler(handlerItem, previous, next);
+                        }
                     }
                 }
             }

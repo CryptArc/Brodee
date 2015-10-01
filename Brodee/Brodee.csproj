@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\CardCollectionGemColourChangeHandler.cs" />
     <Compile Include="Handlers\CardHandGemColourChangeHandler.cs" />
     <Compile Include="Components\DeckTileHolder.cs" />
     <Compile Include="GameState.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Components\SettingsMenu.cs" />
     <Compile Include="Components\TileSorter.cs" />
     <Compile Include="TileWrapperFactory.cs" />
+    <Compile Include="Triggers\CardCollectionTrigger.cs" />
     <Compile Include="Triggers\CreateFlyingCubesTrigger.cs" />
     <Compile Include="Triggers\NetworkEntityTrigger.cs" />
     <Compile Include="Triggers\Trigger.cs" />

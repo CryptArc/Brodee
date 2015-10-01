@@ -10,14 +10,33 @@ namespace Brodee.Handlers
             if (global::GameState.Get() != null)
             {
                 var handCards = global::GameState.Get().GetCurrentPlayer().GetHandZone().GetCards();
-                Logger.AppendLine("Attempting to set hand cards gem tint to green");
+                Logger.AppendLine("Attempting to recolour gems");
                 foreach (var handCard in handCards)
                 {
-                    var color = handCard?.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.color;
-                    if (handCard != null && color != null && color != Color.green)
+                    if (handCard != null)
                     {
-                        Logger.AppendLine($"Attempting to hand card:{handCard.GetEntity().GetName()} gem tint to green");
-                        handCard?.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.SetColor("_tint", Color.green);
+                        handCard.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.SetColor("_TintColor", Color.green);
+                        //handCard.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.SetColor("_Color", Color.green);
+                    }
+                }
+
+                var deckCards = global::GameState.Get().GetCurrentPlayer().GetDeckZone().GetCards();
+                foreach (var deckCard in deckCards)
+                {
+                    if (deckCard != null)
+                    {
+                        deckCard.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.SetColor("_TintColor", Color.green);
+                        //deckCard.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.SetColor("_Color", Color.green);
+                    }
+                }
+
+                var battlefieldCards = global::GameState.Get().GetCurrentPlayer().GetBattlefieldZone().GetCards();
+                foreach (var bfcard in battlefieldCards)
+                {
+                    if (bfcard != null)
+                    {
+                        bfcard.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.SetColor("_TintColor", Color.green);
+                        //bfcard.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.SetColor("_Color", Color.green);
                     }
                 }
             }

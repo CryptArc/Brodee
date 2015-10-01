@@ -33,6 +33,11 @@ namespace Brodee
             _handlerHub.ProcessActions(_gameState, newGameState);
 
             _gameState = newGameState;
+
+            if (Input.GetKeyDown(KeyCode.F10))
+            {
+                _handlerHub.AddTrigger(new CardCollectionTrigger());
+            }
         }
 
         private void Start()
@@ -45,6 +50,7 @@ namespace Brodee
 
             _handlerHub = new HandlerHub(gameObject);
             _handlerHub.RegisterOnTrigger<CreateFlyingCubesTrigger>(new CreateFlyingCubesHandler(), Handlers.Scene.All);
+            _handlerHub.RegisterOnTrigger<CardCollectionTrigger>(new CardCollectionGemColourChangeHandler(), Handlers.Scene.Collection);
             //_handlerHub.Register(new CreateFlyingCubesHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.All);
             _handlerHub.Register(new CardHandGemColourChangeHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.GamePlay);
 
