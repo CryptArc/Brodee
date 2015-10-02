@@ -38,6 +38,10 @@ namespace Brodee
             {
                 _handlerHub.AddTrigger(new CardCollectionTrigger());
             }
+            if (Input.GetKeyDown(KeyCode.F11))
+            {
+                _handlerHub.AddTrigger(new CheckBoxAttemptTrigger());
+            }
         }
 
         private void Start()
@@ -51,6 +55,7 @@ namespace Brodee
             _handlerHub = new HandlerHub(gameObject);
             _handlerHub.RegisterOnTrigger<CreateFlyingCubesTrigger>(new CreateFlyingCubesHandler(), Handlers.Scene.All);
             _handlerHub.RegisterOnTrigger<CardCollectionTrigger>(new CardCollectionGemColourChangeHandler(), Handlers.Scene.Collection);
+            _handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new CheckBoxAttemptHandler(), Handlers.Scene.All);
             //_handlerHub.Register(new CreateFlyingCubesHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.All);
             _handlerHub.Register(new CardHandGemColourChangeHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.GamePlay);
 

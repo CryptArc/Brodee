@@ -59,8 +59,10 @@
     <Compile Include="Components\DeckTileHolder.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Handlers\CardTileAttemptHandler.cs" />
+    <Compile Include="Handlers\CheckBoxAttemptHandler.cs" />
     <Compile Include="Handlers\DestroyChildGameObjectsHandler.cs" />
     <Compile Include="Handlers\CreateFlyingCubesHandler.cs" />
+    <Compile Include="Handlers\Helper.cs" />
     <Compile Include="Handlers\HowOftenToProcess.cs" />
     <Compile Include="Handlers\Scene.cs" />
     <Compile Include="Handlers\SettingsButtonHandler.cs" />
