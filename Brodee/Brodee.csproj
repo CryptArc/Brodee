@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\BrodeeOptionsMenuHandler.cs" />
     <Compile Include="Handlers\CardCollectionGemColourChangeHandler.cs" />
     <Compile Include="Handlers\CardHandGemColourChangeHandler.cs" />
     <Compile Include="Components\DeckTileHolder.cs" />

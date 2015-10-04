@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Brodee.Handlers
 {
+
+
     public class CheckBoxAttemptHandler : Handler
     {
         public override Trigger[] SpecificHandle(GameState previous, GameState next)
@@ -30,16 +32,6 @@ namespace Brodee.Handlers
             var mouseWorldPos = goCamera.ScreenToWorldPoint(mousePosition);
 
             copy.transform.localPosition = checkBoxOrigGameObject.transform.position;
-
-            Logger.AppendLine($"copy checkboxPos:{copy.transform.position}");
-            Logger.AppendLine($"copy checkboxLocalPos:{copy.transform.localPosition}");
-
-            OptionsMenu.Get()?.m_leftPane.ClearSlices();
-            OptionsMenu.Get()?.m_leftPane.gameObject.SetActive(false);
-            OptionsMenu.Get()?.m_rightPane.ClearSlices();
-            OptionsMenu.Get()?.m_middlePane.ClearSlices();
-
-            Helper.LogGameObjectComponents(OptionsMenu.Get().gameObject);
 
             return EmptyTriggers;
         }

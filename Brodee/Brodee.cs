@@ -55,7 +55,8 @@ namespace Brodee
             _handlerHub = new HandlerHub(gameObject);
             _handlerHub.RegisterOnTrigger<CreateFlyingCubesTrigger>(new CreateFlyingCubesHandler(), Handlers.Scene.All);
             _handlerHub.RegisterOnTrigger<CardCollectionTrigger>(new CardCollectionGemColourChangeHandler(), Handlers.Scene.Collection);
-            _handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new CheckBoxAttemptHandler(), Handlers.Scene.All);
+            //_handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new CheckBoxAttemptHandler(), Handlers.Scene.All);
+            _handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new BrodeeOptionsMenuHandler(), Handlers.Scene.All);
             //_handlerHub.Register(new CreateFlyingCubesHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.All);
             _handlerHub.Register(new CardHandGemColourChangeHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.GamePlay);
 
