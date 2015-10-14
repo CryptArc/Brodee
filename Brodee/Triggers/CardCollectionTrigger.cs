@@ -9,4 +9,14 @@
     {
         
     }
+
+    public class SliderAttemptTrigger : Trigger
+    {
+        
+    }
+
+    public class AddSettingsButtonTrigger : Trigger
+    {
+        
+    }
 }

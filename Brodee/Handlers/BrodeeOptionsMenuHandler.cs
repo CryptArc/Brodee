@@ -24,6 +24,10 @@ namespace Brodee.Handlers
             myOptions.transform.localRotation = new Quaternion(optionsOriginal.transform.localRotation.x, optionsOriginal.transform.localRotation.y, optionsOriginal.transform.localRotation.z, optionsOriginal.transform.localRotation.w);
             myOptions.transform.rotation = new Quaternion(optionsOriginal.transform.rotation.x, optionsOriginal.transform.rotation.y, optionsOriginal.transform.rotation.z, optionsOriginal.transform.rotation.w);
             myOptions.name = "My Clone OptionsClone";
+            myOptions.transform.position = BaseUI.Get().GetOptionsMenuBone().position;
+            myOptions.transform.SetParent(BaseUI.Get().transform);
+
+            Logger.AppendLine($"optionsOriginal.transform.parent:{optionsOriginal.transform.parent.name}");
 
             //Helper.LogGameObjectComponents(optionsOriginal);
 
@@ -33,6 +37,7 @@ namespace Brodee.Handlers
                 if (newGameObject == null)
                     continue;
                 newGameObject.SetActive(true);
+                newGameObject.layer = optionsOriginal.transform.GetChild(i).gameObject.layer;
                 newGameObject.transform.SetParent(myOptions.transform);
                 var origLocalPos = optionsOriginal.transform.GetChild(i).localPosition;
                 var origLocalScale = optionsOriginal.transform.GetChild(i).localScale;
@@ -45,33 +50,53 @@ namespace Brodee.Handlers
             }
             Logger.AppendLine("---------------------------------------");
             Logger.AppendLine("---------------------------");
+            Logger.AppendLine("---------Original -----------");
+            Helper.LogGameObjectComponents(optionsOriginal);
+            var windowContents = myOptions.GetChildObjectContainingName("WindowContents");
+            Helper.LogGameObjectComponents(windowContents);
             Logger.AppendLine("---------------------------------------");
-            OptionsMenu.Get().Hide();
-            Helper.LogGameObjectComponents(myOptions);
-            for (int i = 0; i < myOptions.transform.childCount; i++)
+            var middlePane = windowContents.GetChildObjectContainingName("MiddlePane");
+            Helper.LogGameObjectComponents(middlePane);
+            Logger.AppendLine("---------------------------------------");
+            foreach (var slice in middlePane.GetComponent<MultiSliceElement>().m_slices)
             {
-                var child = myOptions.transform.GetChild(i);
-                if (child.gameObject.name.Contains("WindowContents"))
-                {
-                    Helper.LogGameObjectComponents(child.gameObject);
-                    Logger.AppendLine("---------------------------------------");
-                    for (int j = 0; j < child.childCount; j++)
-                    {
-                        var contentChild = child.GetChild(j).gameObject;
-                        Helper.LogGameObjectComponents(contentChild);
-                        if (contentChild.gameObject.name.Contains("MiddlePane"))
-                        {
-                            foreach (var slice in contentChild.gameObject.GetComponent<MultiSliceElement>().m_slices)
-                            {
-                                Logger.AppendLine($"slice: {slice.m_slice.name}");
-                            }
+                Logger.AppendLine($"slice: {slice.m_slice.name}");
 
-                            contentChild.gameObject.GetComponent<MultiSliceElement>().m_slices.RemoveAt(0);
-                            contentChild.gameObject.GetComponent<MultiSliceElement>().UpdateSlices();
-                        }
-                    }
-                }
             }
+            Logger.AppendLine("-----------Slice work---------");
+            var secondSlice = middlePane.GetComponent<MultiSliceElement>().m_slices[1].m_slice;
+            var creditsButton = secondSlice.GetChildObjectContainingName("CreditsButton");
+            Logger.AppendLine("-----------Credits Button---------");
+            Helper.LogGameObjectComponents(creditsButton);
+
+            Logger.AppendLine("---------------------------------------");
+            Logger.AppendLine("---------------------------");
+            Logger.AppendLine("---------Clone -----------");
+            Helper.LogGameObjectComponents(myOptions);
+            windowContents = myOptions.GetChildObjectContainingName("WindowContents");
+            Helper.LogGameObjectComponents(windowContents);
+            Logger.AppendLine("---------------------------------------");
+            middlePane = windowContents.GetChildObjectContainingName("MiddlePane");
+            Helper.LogGameObjectComponents(middlePane);
+            Logger.AppendLine("---------------------------------------");
+            foreach (var slice in middlePane.GetComponent<MultiSliceElement>().m_slices)
+            {
+                Logger.AppendLine($"slice: {slice.m_slice.name}");
+
+            }
+            Logger.AppendLine("-----------Slice work---------");
+            secondSlice = middlePane.GetComponent<MultiSliceElement>().m_slices[1].m_slice;
+            creditsButton = secondSlice.GetChildObjectContainingName("CreditsButton");
+            Logger.AppendLine("-----------Credits Button---------");
+            Helper.LogGameObjectComponents(creditsButton);
+
+            var midPane = windowContents.GetChildObjectContainingName("MiddlePane");
+            midPane.GetComponent<MultiSliceElement>().UpdateSlices();
+            var leftPane = windowContents.GetChildObjectContainingName("LeftPane");
+            leftPane.GetComponent<MultiSliceElement>().UpdateSlices();
+            var rightPane = windowContents.GetChildObjectContainingName("RightPane");
+            rightPane.GetComponent<MultiSliceElement>().UpdateSlices();
+
             return EmptyTriggers;
 
         }

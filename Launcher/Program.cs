@@ -23,10 +23,10 @@ namespace Launcher
                     if (processes.Length == 1)
                     {
                         Console.Write("Found Hearthstone! giving it a sec");
-                        Thread.Sleep(6000);
+                        Thread.Sleep(1000);
                         var process = Process.Start("mono-injector\\mono-injector.exe",
                             "-dll Brodee.dll -target hearthstone.exe -namespace Brodee -class Loader -method Load");
-                        if (process != null && process.WaitForExit(10000))
+                        if (process != null && process.WaitForExit(50000))
                         {
                             var exitCode = process.ExitCode;
                             if (exitCode == 0)

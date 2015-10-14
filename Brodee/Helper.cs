@@ -22,5 +22,16 @@ namespace Brodee.Handlers
                 Logger.AppendLine($"child go name:{gameObject.transform.GetChild(i).name}");
             }
         }
+
+        public static GameObject GetChildObjectContainingName(this GameObject gameObject, string name)
+        {
+            for (int i = 0; i < gameObject.transform.childCount; i++)
+            {
+                if (gameObject.transform.GetChild(i).name.Contains(name))
+                    return gameObject.transform.GetChild(i).gameObject;
+            }
+
+            return null;
+        }
     }
 }

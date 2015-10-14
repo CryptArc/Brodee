@@ -34,6 +34,15 @@ namespace Brodee
 
             _gameState = newGameState;
 
+            if (Input.GetKeyDown(KeyCode.F5))
+            {
+                _handlerHub.AddTrigger(new AddSettingsButtonTrigger());
+            }
+
+            if (Input.GetKeyDown(KeyCode.F9))
+            {
+                _handlerHub.AddTrigger(new SliderAttemptTrigger());
+            }
             if (Input.GetKeyDown(KeyCode.F10))
             {
                 _handlerHub.AddTrigger(new CardCollectionTrigger());
@@ -55,10 +64,13 @@ namespace Brodee
             _handlerHub = new HandlerHub(gameObject);
             _handlerHub.RegisterOnTrigger<CreateFlyingCubesTrigger>(new CreateFlyingCubesHandler(), Handlers.Scene.All);
             _handlerHub.RegisterOnTrigger<CardCollectionTrigger>(new CardCollectionGemColourChangeHandler(), Handlers.Scene.Collection);
-            //_handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new CheckBoxAttemptHandler(), Handlers.Scene.All);
-            _handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new BrodeeOptionsMenuHandler(), Handlers.Scene.All);
+            _handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new CheckBoxAttemptHandler(), Handlers.Scene.All);
+            _handlerHub.RegisterOnTrigger<SliderAttemptTrigger>(new CreateSliderHandler(), Handlers.Scene.All);
+            _handlerHub.RegisterOnTrigger<AddSettingsButtonTrigger>(new CreateSettingsButtonInGameMenuHandler(), Handlers.Scene.All);
+            //_handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new BrodeeOptionsMenuHandler(), Handlers.Scene.All);
             //_handlerHub.Register(new CreateFlyingCubesHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.All);
             _handlerHub.Register(new CardHandGemColourChangeHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.GamePlay);
+            
 
             _gameState = new GameState
             {
