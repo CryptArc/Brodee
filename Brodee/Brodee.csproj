@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalStrings.cs" />
     <Compile Include="Handlers\BrodeeOptionsMenuHandler.cs" />
     <Compile Include="Handlers\CardCollectionGemColourChangeHandler.cs" />
     <Compile Include="Handlers\CardHandGemColourChangeHandler.cs" />
@@ -65,6 +66,9 @@
     <Compile Include="Handlers\CreateSliderHandler.cs" />
     <Compile Include="Handlers\DestroyChildGameObjectsHandler.cs" />
     <Compile Include="Handlers\CreateFlyingCubesHandler.cs" />
+    <Compile Include="Handlers\GameMenuControls.cs" />
+    <Compile Include="Handlers\GeneralControls.cs" />
+    <Compile Include="Handlers\OptionMenuControls.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="HowOftenToProcess.cs" />
     <Compile Include="Scene.cs" />

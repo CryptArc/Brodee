@@ -21,7 +21,7 @@ namespace Brodee.Handlers
             }
             else
             {
-                CollectionDeckTray.Get().GetDeckBigCard().Show(entDef, cardFlair, cardDef, sourcePos,false);
+                CollectionDeckTray.Get().GetDeckBigCard().Show(entDef, cardFlair, cardDef, sourcePos);
             }
 
             return EmptyTriggers;

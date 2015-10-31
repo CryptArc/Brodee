@@ -11,7 +11,7 @@ namespace Brodee
         private HandlerHub _handlerHub;
         public GameObject Obj;
 
-        private GameState _gameState = new GameState();
+        private GameState _gameState;
 
         private readonly DeckTileHolder _tileHolder = new DeckTileHolder();
 
@@ -38,7 +38,6 @@ namespace Brodee
             {
                 _handlerHub.AddTrigger(new AddSettingsButtonTrigger());
             }
-
             if (Input.GetKeyDown(KeyCode.F9))
             {
                 _handlerHub.AddTrigger(new SliderAttemptTrigger());
@@ -55,11 +54,7 @@ namespace Brodee
 
         private void Start()
         {
-            AlertPopup.PopupInfo popupInfo = new AlertPopup.PopupInfo();
-            popupInfo.m_headerText = GameStrings.Get("StartUp");
-            popupInfo.m_text = "Just some Text. Not so bad.";
-            popupInfo.m_responseDisplay = AlertPopup.ResponseDisplay.CONFIRM;
-            DialogManager.Get().ShowPopup(popupInfo, null, null);
+            _gameState.GeneralControls.MakeConfirmPopUp("Start Up","Just some text when starting up!");
 
             _handlerHub = new HandlerHub(gameObject);
             _handlerHub.RegisterOnTrigger<CreateFlyingCubesTrigger>(new CreateFlyingCubesHandler(), Handlers.Scene.All);
