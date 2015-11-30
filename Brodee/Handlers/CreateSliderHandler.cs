@@ -5,14 +5,13 @@ namespace Brodee.Handlers
 {
     public class CreateSliderHandler : Handler
     {
-        public override Trigger[] SpecificHandle(GameState previous, GameState next)
+        public override void SpecificHandle(IGameState previous, IGameState next)
         {
             if (!next.OptionMenuControls.IsSliderAvailable())
-                return EmptyTriggers;
+                return;
 
             var sliderCopy = next.OptionMenuControls.CreateSliderCopy();
 
-            return EmptyTriggers;
         }
     }
 }

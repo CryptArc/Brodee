@@ -37,23 +37,29 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>H:\Games\Hearthstone\Hearthstone_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>X:\Games\Hearthstone\Hearthstone_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>H:\Games\Hearthstone\Hearthstone_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>X:\Games\Hearthstone\Hearthstone_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="PlayMaker, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>H:\Games\Hearthstone\Hearthstone_Data\Managed\PlayMaker.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>H:\Games\Hearthstone\Hearthstone_Data\Managed\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine">
-      <HintPath>H:\Games\Hearthstone\Hearthstone_Data\Managed\UnityEngine.dll</HintPath>
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>X:\Games\Hearthstone\Hearthstone_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrodeeState.cs" />
+    <Compile Include="EditableInterface.cs" />
     <Compile Include="GlobalStrings.cs" />
     <Compile Include="Handlers\BrodeeOptionsMenuHandler.cs" />
     <Compile Include="Handlers\CardCollectionGemColourChangeHandler.cs" />
@@ -64,17 +70,14 @@
     <Compile Include="Handlers\CheckBoxAttemptHandler.cs" />
     <Compile Include="Handlers\CreateSettingsButtonInGameMenuHandler.cs" />
     <Compile Include="Handlers\CreateSliderHandler.cs" />
-    <Compile Include="Handlers\DestroyChildGameObjectsHandler.cs" />
-    <Compile Include="Handlers\CreateFlyingCubesHandler.cs" />
-    <Compile Include="Handlers\GameMenuControls.cs" />
-    <Compile Include="Handlers\GeneralControls.cs" />
-    <Compile Include="Handlers\OptionMenuControls.cs" />
+    <Compile Include="Controls\GameMenuControls.cs" />
+    <Compile Include="Controls\GeneralControls.cs" />
+    <Compile Include="Controls\OptionMenuControls.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="HowOftenToProcess.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Handlers\SettingsButtonHandler.cs" />
     <Compile Include="Handlers\SettingsMenuHandler.cs" />
-    <Compile Include="KeyPressedHelper.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Brodee.cs" />
     <Compile Include="HandlerHub.cs" />
@@ -91,6 +94,7 @@
     <Compile Include="Triggers\CardCollectionTrigger.cs" />
     <Compile Include="Triggers\CreateFlyingCubesTrigger.cs" />
     <Compile Include="Triggers\NetworkEntityTrigger.cs" />
+    <Compile Include="Triggers\OpenSettingsMenuTrigger.cs" />
     <Compile Include="Triggers\Trigger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

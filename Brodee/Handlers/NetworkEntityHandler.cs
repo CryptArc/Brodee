@@ -19,7 +19,7 @@ namespace Brodee
             Network.Get().RegisterNetHandler(PowerHistory.PacketID.ID, OnPowerHistory);
         }
 
-        public override Trigger[] SpecificHandle(GameState previous, GameState next)
+        public override void SpecificHandle(IGameState previous, IGameState next)
         {
             var trigger = new NetworkEntityTrigger();
             var cardList = new List<string>();
@@ -31,9 +31,8 @@ namespace Brodee
             if (cardList.Count > 0)
             {
                 trigger.CardIds = cardList.ToArray();
-                return new Trigger[] { trigger };
+                //return new Trigger[] { trigger }; // TODO : Revisit later when looking after managed cards
             }
-            return EmptyTriggers;
         }
 
         public static bool IsRecordableCard(Entity entity)
@@ -62,7 +61,7 @@ namespace Brodee
                     {
                         var fullEnt = (Network.HistFullEntity)history;
                         var newEntity = new Entity();
-                        newEntity.InitEntity(fullEnt.Entity);
+                        newEntity.InitRealTimeValues(fullEnt.Entity);
                         Logger.AppendLine($"OnPowerHistory - HistFullEntity:{newEntity}");
                         foreach (var tag in fullEnt.Entity.Tags)
                         {
@@ -77,7 +76,7 @@ namespace Brodee
                     {
                         var showEnt = (Network.HistShowEntity)history;
                         var newEntity = new Entity();
-                        newEntity.InitEntity(showEnt.Entity);
+                        newEntity.InitRealTimeValues(showEnt.Entity);
                         Logger.AppendLine($"OnPowerHistory - HistShowEntity:{newEntity}");
                         foreach (var tag in showEnt.Entity.Tags)
                         {

@@ -16,17 +16,15 @@ namespace Brodee.Handlers
             base.Setup(parent);
         }
 
-        public override Trigger[] SpecificHandle(GameState previous, GameState next)
+        public override void SpecificHandle(IGameState previous, IGameState next)
         {
             var gameMenuIsHidden = GameMenu.Get() == null || !GameMenu.Get().IsShown();
             var shouldHide = _settingsMenu.IsShown() &&
-                            ((next.KeysPressed.Contains(KeyCode.F11) ||
-                            !gameMenuIsHidden) ||
+                            (!gameMenuIsHidden ||
                             SceneMgr.Get().IsTransitioning());
 
             var shouldShow = !shouldHide &&
                             !SceneMgr.Get().IsTransitioning() &&
-                            next.KeysPressed.Contains(KeyCode.F11) &&
                             gameMenuIsHidden;
 
             if (shouldHide)
@@ -39,7 +37,6 @@ namespace Brodee.Handlers
                 Logger.AppendLine("SettingsMenuHandler Show");
                 _settingsMenu.Show();
             }
-            return EmptyTriggers;
         }
 
         private void CreateSettingsMenu(GameObject parent)

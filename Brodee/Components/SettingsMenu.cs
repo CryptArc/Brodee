@@ -43,12 +43,7 @@ namespace Brodee.Components
             list.Add(_resumeButton);
             return list;
         }
-
-        protected override void SetTransform()
-        {
-            TransformUtil.CopyLocal(m_menu.gameObject.transform, BaseUI.Get().GetGameMenuBone(false));
-        }
-
+        
         protected override void LayoutMenu()
         {
             Logger.AppendLine("SettingsMenu LayoutMenu");

@@ -1,8 +1,19 @@
-﻿using UnityEngine;
+﻿using Brodee.Handlers;
+using UnityEngine;
 
-namespace Brodee.Handlers
+namespace Brodee.Controls
 {
-    public class GameMenuControls
+    public interface IGameMenuControls
+    {
+        bool IsGameMenuOpen();
+        bool IsButtonContainerAvailable();
+        bool DoesGameMenuContainBrodeeSettingsAlready();
+        void AddBrodeeSettingsButton(UIEvent.Handler onReleaseHandler);
+        void LayoutGameMenuBackground();
+        bool TryCreateMenuButton(string name, string text, UIEvent.Handler eventHandler, out UIBButton button);
+    }
+
+    public class GameMenuControls : IGameMenuControls
     {
         public bool IsGameMenuOpen()
         {
@@ -13,15 +24,25 @@ namespace Brodee.Handlers
 
         public bool IsButtonContainerAvailable()
         {
-            var buttonListMenuDef = GameMenu.Get()?.gameObject?
-                .GetChildObjectContainingName("ButtonListMenuDef")?.GetComponent<ButtonListMenuDef>();
+            var buttonListMenuDef = GameMenu.Get()
+                ?.gameObject
+                ?.GetComponent<GameMenu>()
+                ?.gameObject
+                ?.GetChildObjectContainingName("MenuBone")
+                ?.GetChildObjectContainingName("ButtonListMenuDef")
+                ?.GetComponent<ButtonListMenuDef>();
             return buttonListMenuDef != null;
         }
 
         private ButtonListMenuDef GetButtonListMenuDef()
         {
-            return GameMenu.Get()?.gameObject?
-                .GetChildObjectContainingName("ButtonListMenuDef")?.GetComponent<ButtonListMenuDef>();
+            return GameMenu.Get()
+                ?.gameObject
+                ?.GetComponent<GameMenu>()
+                ?.gameObject
+                ?.GetChildObjectContainingName("MenuBone")
+                ?.GetChildObjectContainingName("ButtonListMenuDef")
+                ?.GetComponent<ButtonListMenuDef>();
         }
 
         public bool DoesGameMenuContainBrodeeSettingsAlready()

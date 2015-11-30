@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Brodee.Components;
+﻿using Brodee.Components;
 using Brodee.Handlers;
 using Brodee.Triggers;
 using UnityEngine;
@@ -9,7 +8,6 @@ namespace Brodee
     public class Brodee : MonoBehaviour
     {
         private HandlerHub _handlerHub;
-        public GameObject Obj;
 
         private GameState _gameState;
 
@@ -17,18 +15,14 @@ namespace Brodee
 
         private void LateUpdate()
         {
+            var newSceneMode = SceneMgr.Get().GetMode().MapToScene();
+            if (_gameState.Mode != newSceneMode)
+                Logger.AppendLine($"Changing scene to {newSceneMode}");
+
             var newGameState = new GameState
             {
-                Mode = SceneMgr.Get().GetMode().MapToScene(),
-                Cubes = _gameState.Cubes ?? new List<GameObject>()
+                Mode = newSceneMode
             };
-            KeyPressedHelper.PopulateGameState(newGameState);
-
-            if (Obj == null)
-            {
-                Obj = new GameObject();
-                Obj.transform.SetParent(gameObject.transform);
-            }
 
             _handlerHub.ProcessActions(_gameState, newGameState);
 
@@ -36,41 +30,61 @@ namespace Brodee
 
             if (Input.GetKeyDown(KeyCode.F5))
             {
-                _handlerHub.AddTrigger(new AddSettingsButtonTrigger());
+                _handlerHub.AddTrigger(new OpenSettingsMenuTrigger());
             }
-            if (Input.GetKeyDown(KeyCode.F9))
+            if (Input.GetKeyDown(KeyCode.F6))
             {
                 _handlerHub.AddTrigger(new SliderAttemptTrigger());
             }
-            if (Input.GetKeyDown(KeyCode.F10))
+            if (Input.GetKeyDown(KeyCode.F7))
             {
-                _handlerHub.AddTrigger(new CardCollectionTrigger());
+                _handlerHub.AddTrigger(new AddSettingsButtonTrigger());
             }
-            if (Input.GetKeyDown(KeyCode.F11))
+
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                _handlerHub.AddTrigger(new CheckBoxAttemptTrigger());
+                EditableInterface.ShiftUp();
             }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                EditableInterface.ShiftDown();
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                EditableInterface.ShiftLeft();
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                EditableInterface.ShiftRight();
+            }
+            if (Input.GetKeyDown(KeyCode.KeypadPlus))
+            {
+                EditableInterface.ScaleUp();
+            }
+            if (Input.GetKeyDown(KeyCode.KeypadMinus))
+            {
+                EditableInterface.ScaleDown();
+            }
+
+            EditableInterface.ProgressFrameColor(Time.frameCount);
         }
 
         private void Start()
         {
-            _gameState.GeneralControls.MakeConfirmPopUp("Start Up","Just some text when starting up!");
+            _gameState.GeneralControls.MakeConfirmPopUp("Start Up", "Just some text when starting up!");
 
             _handlerHub = new HandlerHub(gameObject);
-            _handlerHub.RegisterOnTrigger<CreateFlyingCubesTrigger>(new CreateFlyingCubesHandler(), Handlers.Scene.All);
-            _handlerHub.RegisterOnTrigger<CardCollectionTrigger>(new CardCollectionGemColourChangeHandler(), Handlers.Scene.Collection);
-            _handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new CheckBoxAttemptHandler(), Handlers.Scene.All);
-            _handlerHub.RegisterOnTrigger<SliderAttemptTrigger>(new CreateSliderHandler(), Handlers.Scene.All);
-            _handlerHub.RegisterOnTrigger<AddSettingsButtonTrigger>(new CreateSettingsButtonInGameMenuHandler(), Handlers.Scene.All);
-            //_handlerHub.RegisterOnTrigger<CheckBoxAttemptTrigger>(new BrodeeOptionsMenuHandler(), Handlers.Scene.All);
-            //_handlerHub.Register(new CreateFlyingCubesHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.All);
-            _handlerHub.Register(new CardHandGemColourChangeHandler(), HowOftenToProcess.EverySecond, Handlers.Scene.GamePlay);
-            
+            _handlerHub.RegisterOnTrigger<OpenSettingsMenuTrigger>(new BrodeeOptionsMenuHandler(), Scene.Hub);
+            _handlerHub.RegisterOnTrigger<SliderAttemptTrigger>(new CardTileAttemptHandler(), Scene.Hub);
+            _handlerHub.RegisterOnTrigger<AddSettingsButtonTrigger>(new CreateSettingsButtonInGameMenuHandler(), Scene.Hub);
+            _handlerHub.Register(new CardHandGemColourChangeHandler(), HowOftenToProcess.EverySecond, Scene.GamePlay);
+            _handlerHub.Register(new CardCollectionGemColourChangeHandler(), HowOftenToProcess.EverySecond, Scene.Collection);
+
 
             _gameState = new GameState
             {
-                Mode = Handlers.Scene.Unknown,
-                Cubes = new List<GameObject>()
+                Mode = Scene.Unknown
             };
         }
 

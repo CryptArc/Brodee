@@ -5,99 +5,49 @@ namespace Brodee.Handlers
 {
     public class BrodeeOptionsMenuHandler : Handler
     {
-        /*
-        OptionsSection1 - Border around Graphics & Sound
-        OptionsSection2 - Border around Preferences & Miscellaneous
-        OptionsFrame - Background and MainBorder
-        Header - Header Title
-        MenuClickArea - Doesnt get cloned properly?
-        InputBlocker - General input blocker, doesnt get cloned properly?
-        WindowContents - 
-        */
-        public override Trigger[] SpecificHandle(GameState previous, GameState next)
+        public override void SpecificHandle(IGameState previous, IGameState next)
         {
-            var optionsOriginal = OptionsMenu.Get().gameObject;
+            var settingsWindow = next.OptionMenuControls.CreateBareSettingWindow();
 
-            var myOptions = new GameObject();
-            myOptions.transform.localPosition = new Vector3(optionsOriginal.transform.position.x, optionsOriginal.transform.position.y, optionsOriginal.transform.position.z);
-            myOptions.transform.localScale = new Vector3(optionsOriginal.transform.localScale.x, optionsOriginal.transform.localScale.y, optionsOriginal.transform.localScale.z);
-            myOptions.transform.localRotation = new Quaternion(optionsOriginal.transform.localRotation.x, optionsOriginal.transform.localRotation.y, optionsOriginal.transform.localRotation.z, optionsOriginal.transform.localRotation.w);
-            myOptions.transform.rotation = new Quaternion(optionsOriginal.transform.rotation.x, optionsOriginal.transform.rotation.y, optionsOriginal.transform.rotation.z, optionsOriginal.transform.rotation.w);
-            myOptions.name = "My Clone OptionsClone";
-            myOptions.transform.position = BaseUI.Get().GetOptionsMenuBone().position;
-            myOptions.transform.SetParent(BaseUI.Get().transform);
-
-            Logger.AppendLine($"optionsOriginal.transform.parent:{optionsOriginal.transform.parent.name}");
-
-            //Helper.LogGameObjectComponents(optionsOriginal);
-
-            for (int i = 0; i < optionsOriginal.transform.childCount; i++)
+            var sliderCopy = next.OptionMenuControls.CreateSliderCopy();
+            var scrollbarControl = sliderCopy.GetComponent<ScrollbarControl>();
+            scrollbarControl.SetUpdateHandler(val =>
             {
-                var newGameObject = GameUtils.Instantiate(optionsOriginal.transform.GetChild(i).gameObject) as GameObject;
-                if (newGameObject == null)
-                    continue;
-                newGameObject.SetActive(true);
-                newGameObject.layer = optionsOriginal.transform.GetChild(i).gameObject.layer;
-                newGameObject.transform.SetParent(myOptions.transform);
-                var origLocalPos = optionsOriginal.transform.GetChild(i).localPosition;
-                var origLocalScale = optionsOriginal.transform.GetChild(i).localScale;
-                var origLocalRotation = optionsOriginal.transform.GetChild(i).localRotation;
-                var origRotation = optionsOriginal.transform.GetChild(i).rotation;
-                newGameObject.transform.localPosition = new Vector3(origLocalPos.x, origLocalPos.y, origLocalPos.z);
-                newGameObject.transform.localScale = new Vector3(origLocalScale.x, origLocalScale.y, origLocalScale.z);
-                newGameObject.transform.localRotation = new Quaternion(origLocalRotation.x, origLocalRotation.y, origLocalRotation.z, origLocalRotation.w);
-                newGameObject.transform.rotation = new Quaternion(origRotation.x, origRotation.y, origRotation.z, origRotation.w);
-            }
-            Logger.AppendLine("---------------------------------------");
-            Logger.AppendLine("---------------------------");
-            Logger.AppendLine("---------Original -----------");
-            Helper.LogGameObjectComponents(optionsOriginal);
-            var windowContents = myOptions.GetChildObjectContainingName("WindowContents");
-            Helper.LogGameObjectComponents(windowContents);
-            Logger.AppendLine("---------------------------------------");
-            var middlePane = windowContents.GetChildObjectContainingName("MiddlePane");
-            Helper.LogGameObjectComponents(middlePane);
-            Logger.AppendLine("---------------------------------------");
-            foreach (var slice in middlePane.GetComponent<MultiSliceElement>().m_slices)
-            {
-                Logger.AppendLine($"slice: {slice.m_slice.name}");
+                Logger.AppendLine("Changing scrollbarControl copy");
+            });
+            var gs = next as GameState;
+            var uiCamGo = gs.GetUiCameraGameObject();
+            uiCamGo.transform.localScale = new Vector3(1f, 1f, 1f);
+            Logger.AppendLine($"uiCamGo.transform.pos:{uiCamGo.transform.position}");
+            Logger.AppendLine($"scrollbarControl.transform.pos:{scrollbarControl.transform.position}");
+            Logger.AppendLine($"scrollbarControl.transform.scale:{scrollbarControl.transform.localScale}");
 
-            }
-            Logger.AppendLine("-----------Slice work---------");
-            var secondSlice = middlePane.GetComponent<MultiSliceElement>().m_slices[1].m_slice;
-            var creditsButton = secondSlice.GetChildObjectContainingName("CreditsButton");
-            Logger.AppendLine("-----------Credits Button---------");
-            Helper.LogGameObjectComponents(creditsButton);
+            scrollbarControl.transform.SetParent(uiCamGo.transform);
+            scrollbarControl.gameObject.ZeroPositionTransform();
+            Helper.LogGameObjectComponents(scrollbarControl.gameObject);
+            EditableInterface.SetGameObject(scrollbarControl.gameObject);
 
-            Logger.AppendLine("---------------------------------------");
-            Logger.AppendLine("---------------------------");
-            Logger.AppendLine("---------Clone -----------");
-            Helper.LogGameObjectComponents(myOptions);
-            windowContents = myOptions.GetChildObjectContainingName("WindowContents");
-            Helper.LogGameObjectComponents(windowContents);
-            Logger.AppendLine("---------------------------------------");
-            middlePane = windowContents.GetChildObjectContainingName("MiddlePane");
-            Helper.LogGameObjectComponents(middlePane);
-            Logger.AppendLine("---------------------------------------");
-            foreach (var slice in middlePane.GetComponent<MultiSliceElement>().m_slices)
-            {
-                Logger.AppendLine($"slice: {slice.m_slice.name}");
+            Logger.AppendLine($"scrollbarControl.transform.pos:{scrollbarControl.transform.position}");
+            Logger.AppendLine($"scrollbarControl.transform.scale:{scrollbarControl.transform.localScale}");
 
-            }
-            Logger.AppendLine("-----------Slice work---------");
-            secondSlice = middlePane.GetComponent<MultiSliceElement>().m_slices[1].m_slice;
-            creditsButton = secondSlice.GetChildObjectContainingName("CreditsButton");
-            Logger.AppendLine("-----------Credits Button---------");
-            Helper.LogGameObjectComponents(creditsButton);
+            Helper.LogGameObjectComponents(settingsWindow);
+            var header = settingsWindow.GetChildObjectContainingName("Header");
+            Helper.LogGameObjectComponents(header);
+            var headerUberText = header.GetChildObjectContainingName("UberText");
+            headerUberText.GetComponent<UberText>().Text = "Test Text";
+            headerUberText.GetComponent<UberText>().UpdateText();
+            headerUberText.GetComponent<UberText>().UpdateNow();
 
-            var midPane = windowContents.GetChildObjectContainingName("MiddlePane");
-            midPane.GetComponent<MultiSliceElement>().UpdateSlices();
-            var leftPane = windowContents.GetChildObjectContainingName("LeftPane");
-            leftPane.GetComponent<MultiSliceElement>().UpdateSlices();
-            var rightPane = windowContents.GetChildObjectContainingName("RightPane");
-            rightPane.GetComponent<MultiSliceElement>().UpdateSlices();
+            Helper.LogGameObjectComponents(sliderCopy);
+            var sliderCopyText = sliderCopy.GetChildObjectContainingName("MusicVolumeLabel").GetComponent<UberText>();
+            sliderCopyText.Text = "Slider Copy Text";
+            sliderCopyText.UpdateText();
 
-            return EmptyTriggers;
+            sliderCopy.transform.localScale = new Vector3(40.0f, 1.0f, 40.0f);
+
+            Logger.AppendLine($"sliderCopy scale {sliderCopy.transform.localScale}");
+            Logger.AppendLine($"scrollbarControl scale {scrollbarControl.transform.localScale}");
+            Logger.AppendLine($"scrollbarControl.m_Thumb scale {scrollbarControl.m_Thumb.transform.localScale}");
 
         }
     }

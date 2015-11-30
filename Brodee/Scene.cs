@@ -1,22 +1,21 @@
 ﻿using System;
 
-namespace Brodee.Handlers
+namespace Brodee
 {
     [Flags]
     public enum Scene
     {
         None = 0,
-        All = 1, 
-        Hub = 2,
-        GamePlay = 4,
-        Collection = 8,
-        Unknown = 16,
-        PackOpening = 32,
-        Tournament = 64,
-        Friendly = 128,
-        Draft = 256,
-        Adventure = 512,
-        TavernBrawl = 1024
+        Hub = 1,
+        GamePlay = 2,
+        Collection = 4,
+        Unknown = 8,
+        PackOpening = 16,
+        Tournament = 32,
+        Friendly = 64,
+        Draft = 128,
+        Adventure = 256,
+        TavernBrawl = 512
     }
 
     public static class ScenesToProcessOnExtensions
@@ -37,29 +36,29 @@ namespace Brodee.Handlers
                 case SceneMgr.Mode.LOGIN:
                     return Scene.Unknown;
                 case SceneMgr.Mode.HUB:
-                    return Scene.Hub | Scene.All;
+                    return Scene.Hub;
                 case SceneMgr.Mode.GAMEPLAY:
-                    return Scene.GamePlay | Scene.All;
+                    return Scene.GamePlay;
                 case SceneMgr.Mode.COLLECTIONMANAGER:
-                    return Scene.Collection | Scene.All;
+                    return Scene.Collection;
                 case SceneMgr.Mode.PACKOPENING:
-                    return Scene.PackOpening | Scene.All;
+                    return Scene.PackOpening;
                 case SceneMgr.Mode.TOURNAMENT:
-                    return Scene.Tournament | Scene.All;
+                    return Scene.Tournament;
                 case SceneMgr.Mode.FRIENDLY:
-                    return Scene.Friendly | Scene.All;
+                    return Scene.Friendly;
                 case SceneMgr.Mode.FATAL_ERROR:
                     return Scene.Unknown;
                 case SceneMgr.Mode.DRAFT:
-                    return Scene.Draft | Scene.All;
+                    return Scene.Draft;
                 case SceneMgr.Mode.CREDITS:
                     return Scene.Unknown;
                 case SceneMgr.Mode.RESET:
                     return Scene.Unknown;
                 case SceneMgr.Mode.ADVENTURE:
-                    return Scene.Adventure | Scene.All;
+                    return Scene.Adventure;
                 case SceneMgr.Mode.TAVERN_BRAWL:
-                    return Scene.TavernBrawl | Scene.All;
+                    return Scene.TavernBrawl;
                 default:
                     return Scene.Unknown;
             }

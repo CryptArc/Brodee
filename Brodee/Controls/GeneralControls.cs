@@ -1,6 +1,11 @@
-namespace Brodee.Handlers
+namespace Brodee.Controls
 {
-    public class GeneralControls
+    public interface IGeneralControls
+    {
+        void MakeConfirmPopUp(string title, string text);
+    }
+
+    public class GeneralControls : IGeneralControls
     {
         public void MakeConfirmPopUp(string title, string text)
         {

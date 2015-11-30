@@ -6,7 +6,7 @@ namespace Brodee.Handlers
     public interface IHandler
     {
         void Setup(GameObject parent);
-        Trigger[] SpecificHandle(GameState previous, GameState next);
+        void SpecificHandle(IGameState previous, IGameState next);
     }
 
     public abstract class Handler : IHandler
@@ -19,12 +19,12 @@ namespace Brodee.Handlers
             Parent = parent;
         }
 
-        public Trigger[] Handle(GameState previous, GameState next)
+        public void Handle(IGameState previous, IGameState next)
         {
-            return SpecificHandle(previous, next);
+            SpecificHandle(previous, next);
         }
 
-        public abstract Trigger[] SpecificHandle(GameState previous, GameState next);
+        public abstract void SpecificHandle(IGameState previous, IGameState next);
     }
 
 }

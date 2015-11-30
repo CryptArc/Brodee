@@ -7,14 +7,12 @@ namespace Brodee.Handlers
     {
         DeckTileHolder _tileHolder = new DeckTileHolder();
         
-        public override Trigger[] SpecificHandle(GameState previous, GameState next)
+        public override void SpecificHandle(IGameState previous, IGameState next)
         {
             _tileHolder.Update(Parent);
             _tileHolder.AddCard("GVG_058");
             _tileHolder.AddCard("GVG_059");
             _tileHolder.AddCard("GVG_060");
-
-            return EmptyTriggers;
         }
     }
 }

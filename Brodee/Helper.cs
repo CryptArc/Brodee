@@ -33,5 +33,18 @@ namespace Brodee.Handlers
 
             return null;
         }
+
+        public static void PopulateTransform(this GameObject gameObject, GameObject otherGameObject)
+        {
+            gameObject.transform.localPosition = new Vector3(otherGameObject.transform.position.x, otherGameObject.transform.position.y, otherGameObject.transform.position.z);
+            gameObject.transform.localScale = new Vector3(otherGameObject.transform.localScale.x, otherGameObject.transform.localScale.y, otherGameObject.transform.localScale.z);
+            gameObject.transform.localRotation = new Quaternion(otherGameObject.transform.localRotation.x, otherGameObject.transform.localRotation.y, otherGameObject.transform.localRotation.z, otherGameObject.transform.localRotation.w);
+            gameObject.transform.rotation = new Quaternion(otherGameObject.transform.rotation.x, otherGameObject.transform.rotation.y, otherGameObject.transform.rotation.z, otherGameObject.transform.rotation.w);
+        }
+
+        public static void ZeroPositionTransform(this GameObject gameObject)
+        {
+            gameObject.transform.localPosition = Vector3.zero;
+        }
     }
 }

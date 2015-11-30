@@ -4,14 +4,13 @@ namespace Brodee.Handlers
 {
     public class CheckBoxAttemptHandler : Handler
     {
-        public override Trigger[] SpecificHandle(GameState previous, GameState next)
+        public override void SpecificHandle(IGameState previous, IGameState next)
         {
-            if(!next.OptionMenuControls.IsCheckBoxAvailable())
-                return EmptyTriggers;
+            if (!next.OptionMenuControls.IsCheckBoxAvailable())
+                return;
 
             var checkboxCopy = next.OptionMenuControls.CreateCheckboxCopy();
-
-            return EmptyTriggers;
+            
         }
     }
 }

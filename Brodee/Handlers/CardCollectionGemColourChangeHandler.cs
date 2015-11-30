@@ -5,10 +5,8 @@ namespace Brodee.Handlers
 {
     public class CardCollectionGemColourChangeHandler : Handler
     {
-        public override Trigger[] SpecificHandle(GameState previous, GameState next)
+        public override void SpecificHandle(IGameState previous, IGameState next)
         {
-
-            Logger.AppendLine($"Attempting to check CardCollection page");
             var ownedCardStacks = CollectionManager.Get().GetOwnedCardStacks();
             foreach (var collectionCardStack in ownedCardStacks)
             {
@@ -22,7 +20,6 @@ namespace Brodee.Handlers
                     }
                 }
             }
-            return EmptyTriggers;
         }
     }
 }

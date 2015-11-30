@@ -9,9 +9,9 @@ namespace Brodee
     public class HandlerItem
     {
         public IHandler Handler { get; }
-        public Handlers.Scene Scene { get; }
+        public Scene Scene { get; }
 
-        public HandlerItem(IHandler handler, Handlers.Scene scene)
+        public HandlerItem(IHandler handler, Scene scene)
         {
             Handler = handler;
             Scene = scene;
@@ -33,7 +33,7 @@ namespace Brodee
             _parent = parent;
         }
 
-        public void RegisterOnTrigger<T>(Handler handler, Handlers.Scene scene) where T : Trigger
+        public void RegisterOnTrigger<T>(Handler handler, Scene scene) where T : Trigger
         {
             var type = typeof(T);
             if (!_triggerHandlers.ContainsKey(type))
@@ -44,10 +44,10 @@ namespace Brodee
             _triggerHandlers[type].Add(new HandlerItem(handler, scene));
         }
 
-        public void Register(Handler handler, HowOftenToProcess howOftenToProcess, Handlers.Scene scene)
+        public void Register(Handler handler, HowOftenToProcess howOftenToProcess, Scene scene)
         {
             handler.Setup(_parent);
-            if (howOftenToProcess == HowOftenToProcess.Never || scene == Handlers.Scene.None)
+            if (howOftenToProcess == HowOftenToProcess.Never || scene == Scene.None)
                 return; //Protect against default enums
 
             switch (howOftenToProcess)
@@ -66,7 +66,7 @@ namespace Brodee
             _triggersQueue.Enqueue(trigger);
         }
 
-        public void ProcessActions(GameState previous, GameState next)
+        public void ProcessActions(IGameState previous, IGameState next)
         {
             List<HandlerItem> handlerList;
             while (_triggersQueue.Count > 0) // Triggers
@@ -79,7 +79,7 @@ namespace Brodee
                     foreach (var handlerItem in handlerList)
                     {
                         Logger.AppendLine($"Attempting to handler:{handlerItem.Handler.GetType()}");
-                        //if (handlerItem.Scene.IsSet(next.Mode)) //TODO: Fix
+                        if (handlerItem.Scene.IsSet(next.Mode))
                         {
                             Logger.AppendLine($"Executing handler:{handlerItem.Handler.GetType()}");
                             ExecuteHandler(handlerItem, previous, next);
@@ -91,17 +91,19 @@ namespace Brodee
             {
                 foreach (var perSecondHandler in _perSecondHandlers)
                 {
-                    ExecuteHandler(perSecondHandler, previous, next);
+                    if (perSecondHandler.Scene.IsSet(next.Mode))
+                        ExecuteHandler(perSecondHandler, previous, next);
                 }
                 _nextPerSecondTime = DateTime.UtcNow + TimeSpan.FromSeconds(1);
             }
             foreach (var perFrameHandler in _perFrameHandlers)// PerFrame Handlers
             {
-                ExecuteHandler(perFrameHandler, previous, next);
+                if (perFrameHandler.Scene.IsSet(next.Mode))
+                    ExecuteHandler(perFrameHandler, previous, next);
             }
         }
 
-        private void ExecuteHandler(HandlerItem handlerItem, GameState previous, GameState next)
+        private void ExecuteHandler(HandlerItem handlerItem, IGameState previous, IGameState next)
         {
             try
             {
