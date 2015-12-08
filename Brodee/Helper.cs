@@ -34,6 +34,11 @@ namespace Brodee.Handlers
             return null;
         }
 
+        public static GameObject GetParentGameObject(this GameObject go)
+        {
+            return go.transform.parent.gameObject;
+        }
+
         public static void PopulateTransform(this GameObject gameObject, GameObject otherGameObject)
         {
             gameObject.transform.localPosition = new Vector3(otherGameObject.transform.position.x, otherGameObject.transform.position.y, otherGameObject.transform.position.z);

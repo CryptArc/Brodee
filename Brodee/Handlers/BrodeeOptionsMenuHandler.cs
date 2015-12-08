@@ -27,6 +27,14 @@ namespace Brodee.Handlers
             Helper.LogGameObjectComponents(scrollbarControl.gameObject);
             EditableInterface.SetGameObject(scrollbarControl.gameObject);
 
+            GameObject go = scrollbarControl.gameObject.GetParentGameObject();
+            while (go != null)
+            {
+                Logger.AppendLine($"BrodeeOptionsMenuHandler go.name parent:{go.name}");
+
+                go = scrollbarControl.gameObject.GetParentGameObject();
+            }
+
             Logger.AppendLine($"scrollbarControl.transform.pos:{scrollbarControl.transform.position}");
             Logger.AppendLine($"scrollbarControl.transform.scale:{scrollbarControl.transform.localScale}");
 

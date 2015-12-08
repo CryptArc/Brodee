@@ -41,33 +41,7 @@ namespace Brodee
                 _handlerHub.AddTrigger(new AddSettingsButtonTrigger());
             }
 
-
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                EditableInterface.ShiftUp();
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                EditableInterface.ShiftDown();
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                EditableInterface.ShiftLeft();
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                EditableInterface.ShiftRight();
-            }
-            if (Input.GetKeyDown(KeyCode.KeypadPlus))
-            {
-                EditableInterface.ScaleUp();
-            }
-            if (Input.GetKeyDown(KeyCode.KeypadMinus))
-            {
-                EditableInterface.ScaleDown();
-            }
-
-            EditableInterface.ProgressFrameColor(Time.frameCount);
+            EditableInterface.ProgressFrame();
         }
 
         private void Start()
