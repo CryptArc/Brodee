@@ -44,7 +44,11 @@ namespace Brodee.Controls
             var soundSlider = OptionsMenu.Get()?.m_musicVolume;
             var soundSliderOrigGameObject = soundSlider.gameObject;
             var sliderCopy = Object.Instantiate(soundSliderOrigGameObject);
-            sliderCopy.PopulateTransform(soundSliderOrigGameObject);
+            if (!UiInterface.TryPopulateOrAdd("New Slider", sliderCopy, soundSliderOrigGameObject))
+            {
+                sliderCopy.transform.localScale = new Vector3(40.0f, 1.0f, 40.0f);
+                UiInterface.UpdateOrAdd(sliderCopy.name, sliderCopy);
+            }
             return sliderCopy;
         }
 
@@ -59,6 +63,7 @@ namespace Brodee.Controls
             myOptions.transform.rotation = new Quaternion(optionsOriginal.transform.rotation.x, optionsOriginal.transform.rotation.y, optionsOriginal.transform.rotation.z, optionsOriginal.transform.rotation.w);
             myOptions.name = "My Clone OptionsClone";
             Logger.AppendLine($"optionsOriginal.transform.childCount:{optionsOriginal.transform.childCount}");
+            Helper.LogGameObjectComponents(optionsOriginal);
             for (int i = 0; i < optionsOriginal.transform.childCount; i++)
             {
                 var newGameObject = GameUtils.Instantiate(optionsOriginal.transform.GetChild(i).gameObject) as GameObject;
@@ -76,8 +81,12 @@ namespace Brodee.Controls
                 newGameObject.transform.localRotation = new Quaternion(origLocalRotation.x, origLocalRotation.y, origLocalRotation.z, origLocalRotation.w);
                 newGameObject.transform.rotation = new Quaternion(origRotation.x, origRotation.y, origRotation.z, origRotation.w);
             }
+            Object.Destroy(myOptions.GetChildObjectContainingName("InputBlocker"));
+            Object.Destroy(myOptions.GetChildObjectContainingName("MenuClickArea"));
             var windowContents = myOptions.GetChildObjectContainingName("WindowContents");
             windowContents.SetActive(false);
+
+            UiInterface.TryPopulateOrAdd("Bare Settings Window", myOptions, optionsOriginal);
 
             return myOptions;
         }
