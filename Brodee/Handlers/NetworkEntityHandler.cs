@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Brodee.Handlers;
 using Brodee.Triggers;
 using PegasusGame;
 using UnityEngine;
 
-namespace Brodee
+namespace Brodee.Handlers
 {
     public class NetworkEntityHandler : Handler
     {

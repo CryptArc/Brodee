@@ -43,6 +43,7 @@ namespace Brodee.Controls
                 return null;
             var soundSlider = OptionsMenu.Get()?.m_musicVolume;
             var soundSliderOrigGameObject = soundSlider.gameObject;
+            //Helper.LogGameObjectComponents(soundSliderOrigGameObject);
             var sliderCopy = Object.Instantiate(soundSliderOrigGameObject);
             if (!UiInterface.TryPopulateOrAdd("New Slider", sliderCopy, soundSliderOrigGameObject))
             {
@@ -63,7 +64,7 @@ namespace Brodee.Controls
             myOptions.transform.rotation = new Quaternion(optionsOriginal.transform.rotation.x, optionsOriginal.transform.rotation.y, optionsOriginal.transform.rotation.z, optionsOriginal.transform.rotation.w);
             myOptions.name = "My Clone OptionsClone";
             Logger.AppendLine($"optionsOriginal.transform.childCount:{optionsOriginal.transform.childCount}");
-            Helper.LogGameObjectComponents(optionsOriginal);
+            //Helper.LogGameObjectComponents(optionsOriginal);
             for (int i = 0; i < optionsOriginal.transform.childCount; i++)
             {
                 var newGameObject = GameUtils.Instantiate(optionsOriginal.transform.GetChild(i).gameObject) as GameObject;
