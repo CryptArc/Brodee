@@ -1,7 +1,8 @@
-﻿using Brodee.Triggers;
+﻿using Brodee.Components;
+using Brodee.HandlersDump;
 using UnityEngine;
 
-namespace Brodee.Handlers
+namespace Brodee.Core.Handlers
 {
     public class CardHandGemColourChangeHandler : Handler
     {

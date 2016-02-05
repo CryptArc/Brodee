@@ -1,7 +1,7 @@
-﻿using Brodee.Triggers;
+﻿using Brodee.Components;
 using UnityEngine;
 
-namespace Brodee.Handlers
+namespace Brodee.HandlersDump
 {
     public class SettingsButtonHandler : Handler
     {

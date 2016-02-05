@@ -1,6 +1,6 @@
 ﻿namespace Brodee.Triggers
 {
-    public class OpenSettingsMenuTrigger : Trigger
+    public class F12PressedTrigger : Trigger
     {
         
     }

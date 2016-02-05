@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Brodee.Handlers
+namespace Brodee
 {
     public static class Helper
     {

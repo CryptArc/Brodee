@@ -1,7 +1,7 @@
 ﻿using Brodee.Triggers;
 using UnityEngine;
 
-namespace Brodee.Handlers
+namespace Brodee.Components
 {
     public interface IHandler
     {

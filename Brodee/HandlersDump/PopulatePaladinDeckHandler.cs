@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
+using Brodee.Components;
 
-namespace Brodee.Handlers
+namespace Brodee.HandlersDump
 {
     public class PopulatePaladinDeckHandler : Handler
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Brodee.Handlers;
+using Brodee.Components;
+using Brodee.HandlersDump;
 using Brodee.Triggers;
 using UnityEngine;
 
@@ -18,7 +19,13 @@ namespace Brodee
         }
     }
 
-    public class HandlerHub
+    public interface IHandlerHub
+    {
+        void RegisterOnTrigger<T>(Handler handler, Scene scene) where T : Trigger;
+        void Register(Handler handler, HowOftenToProcess howOftenToProcess, Scene scene);
+    }
+
+    public class HandlerHub : IHandlerHub
     {
         private readonly GameObject _parent;
         private readonly Dictionary<Type, List<HandlerItem>> _triggerHandlers = new Dictionary<Type, List<HandlerItem>>();
@@ -69,6 +76,13 @@ namespace Brodee
         public void ProcessActions(IGameState previous, IGameState next)
         {
             List<HandlerItem> handlerList;
+
+            foreach (var perFrameHandler in _perFrameHandlers)// PerFrame Handlers
+            {
+                if (perFrameHandler.Scene.IsSet(next.Mode))
+                    ExecuteHandler(perFrameHandler, previous, next);
+            }
+
             while (_triggersQueue.Count > 0) // Triggers
             {
                 var trigger = _triggersQueue.Dequeue();
@@ -96,11 +110,7 @@ namespace Brodee
                 }
                 _nextPerSecondTime = DateTime.UtcNow + TimeSpan.FromSeconds(1);
             }
-            foreach (var perFrameHandler in _perFrameHandlers)// PerFrame Handlers
-            {
-                if (perFrameHandler.Scene.IsSet(next.Mode))
-                    ExecuteHandler(perFrameHandler, previous, next);
-            }
+
         }
 
         private void ExecuteHandler(HandlerItem handlerItem, IGameState previous, IGameState next)

@@ -1,4 +1,4 @@
-﻿namespace Brodee.Handlers
+﻿namespace Brodee
 {
     public enum HowOftenToProcess
     {

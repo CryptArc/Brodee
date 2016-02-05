@@ -1,5 +1,7 @@
 ﻿using Brodee.Components;
-using Brodee.Handlers;
+using Brodee.Controls;
+using Brodee.Core.Handlers;
+using Brodee.Modules;
 using Brodee.Triggers;
 using UnityEngine;
 
@@ -8,29 +10,22 @@ namespace Brodee
     public class Brodee : MonoBehaviour
     {
         private HandlerHub _handlerHub;
-
-        private GameState _gameState;
-
+        private GameState _oldGameState = new GameState { Mode = Scene.Unknown };
+        private GameState _newGameState = new GameState { Mode = Scene.Unknown };
         private readonly DeckTileHolder _tileHolder = new DeckTileHolder();
+        private readonly ModuleManager _moduleModuleManager = new ModuleManager();
 
         private void LateUpdate()
         {
-            var newSceneMode = SceneMgr.Get().GetMode().MapToScene();
-            if (_gameState.Mode != newSceneMode)
-                Logger.AppendLine($"Changing scene to {newSceneMode}");
+            _newGameState = new GameState();
 
-            var newGameState = new GameState
+            _handlerHub.ProcessActions(_oldGameState, _newGameState);
+
+            _oldGameState = _newGameState;
+
+            if (Input.GetKeyDown(KeyCode.F12))
             {
-                Mode = newSceneMode
-            };
-
-            _handlerHub.ProcessActions(_gameState, newGameState);
-
-            _gameState = newGameState;
-
-            if (Input.GetKeyDown(KeyCode.F5))
-            {
-                _handlerHub.AddTrigger(new OpenSettingsMenuTrigger());
+                _handlerHub.AddTrigger(new F12PressedTrigger());
             }
             if (Input.GetKeyDown(KeyCode.F6))
             {
@@ -46,23 +41,21 @@ namespace Brodee
 
         private void Start()
         {
-            _gameState.GeneralControls.MakeConfirmPopUp("Start Up", "Just some text when starting up!");
-
             _handlerHub = new HandlerHub(gameObject);
-            _handlerHub.RegisterOnTrigger<OpenSettingsMenuTrigger>(new BrodeeOptionsMenuHandler(), Scene.Hub);
-            _handlerHub.RegisterOnTrigger<SliderAttemptTrigger>(new CardTileAttemptHandler(), Scene.Hub);
-            _handlerHub.RegisterOnTrigger<AddSettingsButtonTrigger>(new CreateSettingsButtonInGameMenuHandler(), Scene.Hub);
-            _handlerHub.Register(new CardHandGemColourChangeHandler(), HowOftenToProcess.EverySecond, Scene.GamePlay);
-            _handlerHub.Register(new CardCollectionGemColourChangeHandler(), HowOftenToProcess.EverySecond, Scene.Collection);
+            var gameMenuControls = new GameMenuControls();
+            var optionMenuControls = new OptionMenuControls();
+            var generalControls = new GeneralControls();
 
 
-            _gameState = new GameState
-            {
-                Mode = Scene.Unknown
-            };
+            _moduleModuleManager.LoadCore(_handlerHub, gameMenuControls, optionMenuControls, generalControls, () => _oldGameState, () => _newGameState);
+            _moduleModuleManager.LoadModules(_handlerHub);
+
+            var startUpHandler = new StartUpHandler(generalControls);
+
+            startUpHandler.SpecificHandle(_oldGameState, _newGameState);
         }
 
-        private void Awake() => _gameState = new GameState();
+        private void Awake() => _oldGameState = new GameState();
         private void OnDestroy() => Logger.AppendLine("Brodee.OnDestroy()");
     }
 }

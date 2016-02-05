@@ -63,34 +63,42 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BrodeeState.cs" />
+    <Compile Include="Core\CoreModuleInstaller.cs" />
+    <Compile Include="Core\Handlers\GameStateUpdateHandler.cs" />
+    <Compile Include="Modules\ModuleManager.cs" />
+    <Compile Include="Modules\ModuleInstaller.cs" />
+    <Compile Include="Modules\Config.cs" />
+    <Compile Include="Modules\Module.cs" />
+    <Compile Include="Modules\UI\Object.cs" />
+    <Compile Include="Modules\UI\Type.cs" />
     <Compile Include="EditableInterface.cs" />
     <Compile Include="GlobalStrings.cs" />
-    <Compile Include="Handlers\BrodeeOptionsMenuHandler.cs" />
-    <Compile Include="Handlers\CardCollectionGemColourChangeHandler.cs" />
-    <Compile Include="Handlers\CardHandGemColourChangeHandler.cs" />
+    <Compile Include="Core\Handlers\BrodeeOptionsMenuHandler.cs" />
+    <Compile Include="Core\Handlers\CardCollectionGemColourChangeHandler.cs" />
+    <Compile Include="Core\Handlers\CardHandGemColourChangeHandler.cs" />
     <Compile Include="Components\DeckTileHolder.cs" />
     <Compile Include="GameState.cs" />
-    <Compile Include="Handlers\CardTileAttemptHandler.cs" />
-    <Compile Include="Handlers\CheckBoxAttemptHandler.cs" />
-    <Compile Include="Handlers\CreateSettingsButtonInGameMenuHandler.cs" />
-    <Compile Include="Handlers\CreateSliderHandler.cs" />
+    <Compile Include="Core\Handlers\CardTileAttemptHandler.cs" />
+    <Compile Include="HandlersDump\CheckBoxAttemptHandler.cs" />
+    <Compile Include="Core\Handlers\CreateSettingsButtonInGameMenuHandler.cs" />
+    <Compile Include="HandlersDump\CreateSliderHandler.cs" />
     <Compile Include="Controls\GameMenuControls.cs" />
     <Compile Include="Controls\GeneralControls.cs" />
     <Compile Include="Controls\OptionMenuControls.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="HowOftenToProcess.cs" />
     <Compile Include="Scene.cs" />
-    <Compile Include="Handlers\SettingsButtonHandler.cs" />
-    <Compile Include="Handlers\SettingsMenuHandler.cs" />
+    <Compile Include="HandlersDump\SettingsButtonHandler.cs" />
+    <Compile Include="HandlersDump\SettingsMenuHandler.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Brodee.cs" />
     <Compile Include="HandlerHub.cs" />
-    <Compile Include="Handlers\Handler.cs" />
+    <Compile Include="Components\Handler.cs" />
     <Compile Include="Loader.cs" />
-    <Compile Include="Handlers\PopulatePaladinDeckHandler.cs" />
-    <Compile Include="Handlers\PopUpBigTirionHandler.cs" />
-    <Compile Include="Handlers\PopUpTestHandler.cs" />
-    <Compile Include="Handlers\NetworkEntityHandler.cs" />
+    <Compile Include="HandlersDump\PopulatePaladinDeckHandler.cs" />
+    <Compile Include="HandlersDump\PopUpBigTirionHandler.cs" />
+    <Compile Include="HandlersDump\PopUpTestHandler.cs" />
+    <Compile Include="HandlersDump\NetworkEntityHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\SettingsMenu.cs" />
     <Compile Include="Components\TileSorter.cs" />
@@ -98,13 +106,14 @@
     <Compile Include="Triggers\CardCollectionTrigger.cs" />
     <Compile Include="Triggers\CreateFlyingCubesTrigger.cs" />
     <Compile Include="Triggers\NetworkEntityTrigger.cs" />
-    <Compile Include="Triggers\OpenSettingsMenuTrigger.cs" />
+    <Compile Include="Triggers\F12PressedTrigger.cs" />
     <Compile Include="Triggers\Trigger.cs" />
     <Compile Include="UiInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

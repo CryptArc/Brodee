@@ -1,22 +1,30 @@
-﻿using UnityEngine;
+﻿using Brodee.Components;
+using Brodee.Controls;
 
-namespace Brodee.Handlers
+namespace Brodee.Core.Handlers
 {
     public class BrodeeOptionsMenuHandler : Handler
     {
+        private IOptionMenuControls _optionMenuControls;
+
+        public BrodeeOptionsMenuHandler(IOptionMenuControls optionMenuControls)
+        {
+            _optionMenuControls = optionMenuControls;
+        }
+
         public override void SpecificHandle(IGameState previous, IGameState next)
         {
-            var settingsWindow = next.OptionMenuControls.CreateBareSettingWindow();
+            var settingsWindow = _optionMenuControls.CreateBareSettingWindow();
             settingsWindow.SetActive(false);
-            
 
-            var sliderCopy = next.OptionMenuControls.CreateSliderCopy();
+
+            var sliderCopy = _optionMenuControls.CreateSliderCopy();
             var scrollbarControl = sliderCopy.GetComponent<ScrollbarControl>();
             scrollbarControl.SetUpdateHandler(val =>
             {
                 Logger.AppendLine("Changing scrollbarControl copy");
             });
-            
+
             EditableInterface.Register(scrollbarControl.gameObject);
 
             var sliderCopyText = sliderCopy.GetChildObjectContainingName("MusicVolumeLabel").GetComponent<UberText>();

@@ -6,18 +6,12 @@ namespace Brodee
     public interface IGameState
     {
         Scene Mode { get; }
-        IGameMenuControls GameMenuControls { get; }
-        IOptionMenuControls OptionMenuControls { get; }
-        IGeneralControls GeneralControls { get; }
 
     }
 
     public class GameState : IGameState
     {
         public Scene Mode { get; set; } = Scene.None;
-        public IGameMenuControls GameMenuControls { get; } = new GameMenuControls();
-        public IOptionMenuControls OptionMenuControls { get; } = new OptionMenuControls();
-        public IGeneralControls GeneralControls { get; } = new GeneralControls();
 
         private GameObject _uiCameraGameObject;
 

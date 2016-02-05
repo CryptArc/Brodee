@@ -1,7 +1,7 @@
 using Brodee.Components;
-using Brodee.Triggers;
+using Brodee.HandlersDump;
 
-namespace Brodee.Handlers
+namespace Brodee.Core.Handlers
 {
     public class CardTileAttemptHandler : Handler
     {
