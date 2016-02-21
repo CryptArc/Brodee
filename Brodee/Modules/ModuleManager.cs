@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using Brodee.Controls;
 using Brodee.Core;
+using Brodee.Modules.UI;
 using Newtonsoft.Json;
-using Object = Brodee.Modules.UI.Object;
 
 namespace Brodee.Modules
 {
@@ -22,13 +22,12 @@ namespace Brodee.Modules
             var moduleUiLocation = string.Format(UiFileLocationFormat, moduleName);
             if (File.Exists(moduleConfigLocation))
             {
-
                 Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(moduleConfigLocation));
                 var newModule = new Module(config.Name);
                 if (File.Exists(moduleUiLocation))
                 {
-                    Object[] uiObjects = JsonConvert.DeserializeObject<Object[]>(File.ReadAllText(moduleConfigLocation));
-                    newModule.UiObjects.AddRange(uiObjects);
+                    UiObject[] uiUiObjects = JsonConvert.DeserializeObject<UiObject[]>(File.ReadAllText(moduleConfigLocation));
+                    newModule.UiObjects.AddRange(uiUiObjects);
                 }
                 _modules.Add(config.Name, newModule);
             }
@@ -38,14 +37,14 @@ namespace Brodee.Modules
             }
         }
 
-        internal void LoadCore(IHandlerHub handlerHub,
+        internal void LoadCore(HandlerHub handlerHub,
             GameMenuControls gameMenuControls,
             OptionMenuControls optionMenuControls,
             GeneralControls generalControls,
             Func<GameState> oldGameStateFunc,
             Func<GameState> newGameStateFunc)
         {
-            var coreInstaller = new CoreModuleInstaller(gameMenuControls, optionMenuControls, generalControls, oldGameStateFunc, newGameStateFunc);
+            var coreInstaller = new CoreModuleInstaller(gameMenuControls, optionMenuControls, generalControls, oldGameStateFunc, newGameStateFunc, handlerHub);
             coreInstaller.Install(handlerHub);
         }
 

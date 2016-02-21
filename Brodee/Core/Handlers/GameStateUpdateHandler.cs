@@ -1,18 +1,17 @@
 ﻿using System;
 using Brodee.Components;
-using Brodee.Controls;
 
 namespace Brodee.Core.Handlers
 {
     public class GameStateUpdateHandler : Handler
     {
-        private Func<GameState> _newGameStateFunc;
-        private Func<GameState> _oldGameStateFunc;
+        private readonly Func<GameState> _newGameStateFunc;
+        private readonly Func<GameState> _oldGameStateFunc;
 
-        public GameStateUpdateHandler(Func<GameState> _oldGameStateFunc, Func<GameState> _newGameStateFunc)
+        public GameStateUpdateHandler(Func<GameState> oldGameStateFunc, Func<GameState> newGameStateFunc)
         {
-            this._oldGameStateFunc = _oldGameStateFunc;
-            this._newGameStateFunc = _newGameStateFunc;
+            _oldGameStateFunc = oldGameStateFunc;
+            _newGameStateFunc = newGameStateFunc;
         }
 
         public override void SpecificHandle(IGameState previous, IGameState next)
@@ -25,21 +24,8 @@ namespace Brodee.Core.Handlers
                 Logger.AppendLine($"Changing scene to {newSceneMode}");
 
             newGameState.Mode = newSceneMode;
-        }
-    }
-
-    public class StartUpHandler : Handler
-    {
-        private readonly IGeneralControls _generalControls;
-
-        public StartUpHandler(IGeneralControls generalControls)
-        {
-            _generalControls = generalControls;
-        }
-
-        public override void SpecificHandle(IGameState previous, IGameState next)
-        {
-            _generalControls.MakeConfirmPopUp("Start Up", "Just some text when starting up!");
+            newGameState.GameMenuOpen = GameMenu.Get()?.IsShown() ?? false;
+            newGameState.OptionsMenuOpen = OptionsMenu.Get()?.IsShown() ?? false;
         }
     }
 }

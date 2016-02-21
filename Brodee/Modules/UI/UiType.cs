@@ -1,6 +1,6 @@
 ﻿namespace Brodee.Modules.UI
 {
-    public enum Type
+    public enum UiType
     {
         Unknown = 0,
         BareSettingsWindow = 1,

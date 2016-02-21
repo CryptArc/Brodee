@@ -1,6 +1,6 @@
 ﻿using Brodee.Components;
 using Brodee.Controls;
-using Brodee.HandlersDump;
+using Brodee.Triggers;
 
 namespace Brodee.Core.Handlers
 {
@@ -8,11 +8,13 @@ namespace Brodee.Core.Handlers
     {
         private readonly GameMenuControls _gameMenuControls;
         private readonly GeneralControls _generalControls;
+        private readonly HandlerHub _handlerHub;
 
-        public CreateSettingsButtonInGameMenuHandler(GameMenuControls gameMenuControls, GeneralControls generalControls)
+        public CreateSettingsButtonInGameMenuHandler(GameMenuControls gameMenuControls, GeneralControls generalControls, HandlerHub handlerHub)
         {
             _gameMenuControls = gameMenuControls;
             _generalControls = generalControls;
+            _handlerHub = handlerHub;
         }
 
         public override void SpecificHandle(IGameState previous, IGameState next)
@@ -22,10 +24,9 @@ namespace Brodee.Core.Handlers
                 Logger.AppendLine("IsButtonContainerAvailable returned false");
                 return;
             }
-            Logger.AppendLine("IsButtonContainerAvailable returned true");
             _gameMenuControls.AddBrodeeSettingsButton(@event =>
             {
-                _generalControls.MakeConfirmPopUp("SettingsButton", "Just some text to confirm");
+                _handlerHub.AddTrigger(new OpenBrodeeMenuTrigger());
             });
             _gameMenuControls.LayoutGameMenuBackground();
         }

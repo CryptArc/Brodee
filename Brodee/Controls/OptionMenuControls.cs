@@ -55,7 +55,7 @@ namespace Brodee.Controls
         public GameObject CreateBareSettingWindow()
         {
             var optionsOriginal = OptionsMenu.Get().gameObject;
-
+            Logger.AppendLine("OptionsMenu.Get()");
             var myOptions = new GameObject();
             myOptions.transform.localPosition = new Vector3(optionsOriginal.transform.position.x, optionsOriginal.transform.position.y, optionsOriginal.transform.position.z);
             myOptions.transform.localScale = new Vector3(optionsOriginal.transform.localScale.x, optionsOriginal.transform.localScale.y, optionsOriginal.transform.localScale.z);

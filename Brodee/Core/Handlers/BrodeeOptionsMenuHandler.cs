@@ -14,10 +14,10 @@ namespace Brodee.Core.Handlers
 
         public override void SpecificHandle(IGameState previous, IGameState next)
         {
+            GameMenu.Get().ShowOptionsMenu();
             var settingsWindow = _optionMenuControls.CreateBareSettingWindow();
-            settingsWindow.SetActive(false);
-
-
+            settingsWindow.SetActive(true);
+            
             var sliderCopy = _optionMenuControls.CreateSliderCopy();
             var scrollbarControl = sliderCopy.GetComponent<ScrollbarControl>();
             scrollbarControl.SetUpdateHandler(val =>
@@ -30,6 +30,7 @@ namespace Brodee.Core.Handlers
             var sliderCopyText = sliderCopy.GetChildObjectContainingName("MusicVolumeLabel").GetComponent<UberText>();
             sliderCopyText.Text = "Slider Copy Text";
             sliderCopyText.UpdateText();
+            OptionsMenu.Get().Hide(false);
 
         }
     }

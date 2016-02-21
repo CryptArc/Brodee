@@ -64,13 +64,15 @@
   <ItemGroup>
     <Compile Include="BrodeeState.cs" />
     <Compile Include="Core\CoreModuleInstaller.cs" />
+    <Compile Include="Core\Handlers\GameStateDifferHandler.cs" />
     <Compile Include="Core\Handlers\GameStateUpdateHandler.cs" />
+    <Compile Include="Core\Handlers\StartUpHandler.cs" />
     <Compile Include="Modules\ModuleManager.cs" />
     <Compile Include="Modules\ModuleInstaller.cs" />
     <Compile Include="Modules\Config.cs" />
     <Compile Include="Modules\Module.cs" />
-    <Compile Include="Modules\UI\Object.cs" />
-    <Compile Include="Modules\UI\Type.cs" />
+    <Compile Include="Modules\UI\UiObject.cs" />
+    <Compile Include="Modules\UI\UiType.cs" />
     <Compile Include="EditableInterface.cs" />
     <Compile Include="GlobalStrings.cs" />
     <Compile Include="Core\Handlers\BrodeeOptionsMenuHandler.cs" />
@@ -105,8 +107,11 @@
     <Compile Include="TileWrapperFactory.cs" />
     <Compile Include="Triggers\CardCollectionTrigger.cs" />
     <Compile Include="Triggers\CreateFlyingCubesTrigger.cs" />
+    <Compile Include="Triggers\GameMenuOpenedTrigger.cs" />
     <Compile Include="Triggers\NetworkEntityTrigger.cs" />
     <Compile Include="Triggers\F12PressedTrigger.cs" />
+    <Compile Include="Triggers\OpenBrodeeMenuTrigger.cs" />
+    <Compile Include="Triggers\OptionsMenuOpenedTrigger.cs" />
     <Compile Include="Triggers\Trigger.cs" />
     <Compile Include="UiInterface.cs" />
   </ItemGroup>

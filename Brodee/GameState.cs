@@ -1,30 +1,19 @@
-﻿using Brodee.Controls;
-using UnityEngine;
-
-namespace Brodee
+﻿namespace Brodee
 {
     public interface IGameState
     {
         Scene Mode { get; }
-
+        bool GameMenuOpen { get; }
+        bool OptionsMenuOpen { get; }
+        bool QuestLogOpen { get; }
     }
 
     public class GameState : IGameState
     {
         public Scene Mode { get; set; } = Scene.None;
 
-        private GameObject _uiCameraGameObject;
-
-        public GameObject GetUiCameraGameObject()
-        {
-            if (_uiCameraGameObject == null)
-            {
-                var camera = Camera.main;
-                var cameraPos = camera.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, camera.nearClipPlane));
-                _uiCameraGameObject = new GameObject("Brodee.UiCameraGameObject");
-                _uiCameraGameObject.transform.localPosition = new Vector3(cameraPos.x, cameraPos.y, 200.0f);
-            }
-            return _uiCameraGameObject;
-        }
+        public bool GameMenuOpen { get; set; }
+        public bool OptionsMenuOpen { get; set; }
+        public bool QuestLogOpen { get; set; }
     }
 }
