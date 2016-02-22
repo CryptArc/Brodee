@@ -68,8 +68,6 @@
     <Compile Include="Modules\ModuleInstaller.cs" />
     <Compile Include="Modules\Config.cs" />
     <Compile Include="Modules\Module.cs" />
-    <Compile Include="Modules\UI\UiObject.cs" />
-    <Compile Include="Modules\UI\UiType.cs" />
     <Compile Include="EditableInterface.cs" />
     <Compile Include="GlobalStrings.cs" />
     <Compile Include="Core\Handlers\BrodeeOptionsMenuHandler.cs" />

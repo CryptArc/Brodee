@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Brodee.Components;
 using Brodee.Controls;
 using Brodee.Core;
-using Brodee.Modules.UI;
 using Newtonsoft.Json;
 
 namespace Brodee.Modules
 {
     public class ModuleManager
     {
-        const string UiFileLocationFormat = ".brodee\\modules\\{0}\\ui.json";
         const string ConfigFileLocationFormat = ".brodee\\modules\\{0}\\config.json";
 
         public Dictionary<string, Module> _modules = new Dictionary<string, Module>();
@@ -20,16 +19,10 @@ namespace Brodee.Modules
         public void LoadFromConfig(string moduleName)
         {
             var moduleConfigLocation = string.Format(ConfigFileLocationFormat, moduleName);
-            var moduleUiLocation = string.Format(UiFileLocationFormat, moduleName);
             if (File.Exists(moduleConfigLocation))
             {
                 Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(moduleConfigLocation));
-                var newModule = new Module(config.Name);
-                if (File.Exists(moduleUiLocation))
-                {
-                    UiObject[] uiUiObjects = JsonConvert.DeserializeObject<UiObject[]>(File.ReadAllText(moduleConfigLocation));
-                    newModule.UiObjects.AddRange(uiUiObjects);
-                }
+                var newModule = new Module(config.Name, config);
                 _modules.Add(config.Name, newModule);
             }
             else
@@ -52,9 +45,21 @@ namespace Brodee.Modules
 
         internal void LoadModules(HandlerHub handlerHub)
         {
-            foreach (var module in _modules.Select(x => x.Key != "Core"))
+            var workingDirectory = Environment.CurrentDirectory;
+            var modulesDir = Path.Combine(workingDirectory, "/Modules/");
+            foreach (var module in _modules.Where(x => x.Key != "Core"))
             {
-                //TODO: Do module loading here
+                var assembly = Assembly.LoadFile(module.Value.Config.PathToAssembly);
+                var moduleInstallers = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(ModuleInstaller))).ToArray();
+                if (moduleInstallers.Length > 1)
+                {
+                    Logger.AppendLine($"You can only have 1 ModuleInstaller per Assembly. Name:{module.Key}");
+                    continue;
+                }
+                else if (moduleInstallers.Length == 0)
+                {
+                    Logger.AppendLine($"You have no ModuleInstallers in the {module.Key} Assembly");
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Brodee
         static Logger()
         {
             AppendLine("Starting...");
-            AppendLine(string.Format("WorkingDirectory:{0}", Environment.CurrentDirectory));
+            AppendLine($"WorkingDirectory:{Environment.CurrentDirectory}");
         }
 
         public static void AppendLine(string s)
