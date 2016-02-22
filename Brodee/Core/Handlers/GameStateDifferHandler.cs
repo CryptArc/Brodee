@@ -18,7 +18,8 @@ namespace Brodee.Core.Handlers
                 _handlerHub.AddTrigger(new GameMenuOpenedTrigger());
             if (!previous.OptionsMenuOpen && next.OptionsMenuOpen)
                 _handlerHub.AddTrigger(new OptionsMenuOpenedTrigger());
-
+            if (!previous.BrodeeMenuOpen && next.BrodeeMenuOpen)
+                _handlerHub.AddTrigger(new BrodeeMenuOpenedTrigger());
         }
     }
 }

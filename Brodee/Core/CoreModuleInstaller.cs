@@ -1,4 +1,5 @@
 ﻿using System;
+using Brodee.Components;
 using Brodee.Controls;
 using Brodee.Core.Handlers;
 using Brodee.Modules;
@@ -8,6 +9,7 @@ namespace Brodee.Core
 {
     public class CoreModuleInstaller : ModuleInstaller
     {
+        private readonly GameObjectRepo _gameObjectRepo;
         private readonly GameMenuControls _gameMenuControls;
         private readonly OptionMenuControls _optionMenuControls;
         private readonly GeneralControls _generalControls;
@@ -15,7 +17,8 @@ namespace Brodee.Core
         private readonly Func<GameState> _newGameStateFunc;
         private readonly HandlerHub _handlerHub;
 
-        public CoreModuleInstaller(GameMenuControls gameMenuControls,
+        public CoreModuleInstaller(GameObjectRepo gameObjectRepo,
+            GameMenuControls gameMenuControls,
             OptionMenuControls optionMenuControls,
             GeneralControls generalControls,
             Func<GameState> oldGameStateFunc,
@@ -23,6 +26,7 @@ namespace Brodee.Core
             HandlerHub handlerHub
             ) : base("Core")
         {
+            _gameObjectRepo = gameObjectRepo;
             _gameMenuControls = gameMenuControls;
             _optionMenuControls = optionMenuControls;
             _generalControls = generalControls;
@@ -37,7 +41,7 @@ namespace Brodee.Core
             handlerHub.Register(new GameStateUpdateHandler(_oldGameStateFunc, _newGameStateFunc), HowOftenToProcess.EveryFrame, allScenes);
             handlerHub.Register(new GameStateDifferHandler(_handlerHub), HowOftenToProcess.EveryFrame, allScenes);
 
-            handlerHub.RegisterOnTrigger<OpenBrodeeMenuTrigger>(new BrodeeOptionsMenuHandler(_optionMenuControls), Scene.Hub);
+            handlerHub.RegisterOnTrigger<OpenBrodeeMenuTrigger>(new BrodeeOptionsMenuHandler(_optionMenuControls, _gameObjectRepo), Scene.Hub);
             handlerHub.RegisterOnTrigger<SliderAttemptTrigger>(new CardTileAttemptHandler(), Scene.Hub);
             handlerHub.RegisterOnTrigger<GameMenuOpenedTrigger>(new CreateSettingsButtonInGameMenuHandler(_gameMenuControls, _generalControls, _handlerHub), Scene.Hub);
 

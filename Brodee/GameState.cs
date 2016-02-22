@@ -6,6 +6,7 @@
         bool GameMenuOpen { get; }
         bool OptionsMenuOpen { get; }
         bool QuestLogOpen { get; }
+        bool BrodeeMenuOpen { get; set; }
     }
 
     public class GameState : IGameState
@@ -14,6 +15,7 @@
 
         public bool GameMenuOpen { get; set; }
         public bool OptionsMenuOpen { get; set; }
+        public bool BrodeeMenuOpen { get; set; }
         public bool QuestLogOpen { get; set; }
     }
 }

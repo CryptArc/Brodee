@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Brodee.Components;
 using Brodee.Controls;
 using Brodee.Core;
 using Brodee.Modules.UI;
@@ -37,14 +38,15 @@ namespace Brodee.Modules
             }
         }
 
-        internal void LoadCore(HandlerHub handlerHub,
+        internal void LoadCore(GameObjectRepo gameObjectRepo,
+            HandlerHub handlerHub,
             GameMenuControls gameMenuControls,
             OptionMenuControls optionMenuControls,
             GeneralControls generalControls,
             Func<GameState> oldGameStateFunc,
             Func<GameState> newGameStateFunc)
         {
-            var coreInstaller = new CoreModuleInstaller(gameMenuControls, optionMenuControls, generalControls, oldGameStateFunc, newGameStateFunc, handlerHub);
+            var coreInstaller = new CoreModuleInstaller(gameObjectRepo, gameMenuControls, optionMenuControls, generalControls, oldGameStateFunc, newGameStateFunc, handlerHub);
             coreInstaller.Install(handlerHub);
         }
 

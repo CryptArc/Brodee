@@ -42,12 +42,13 @@ namespace Brodee
         private void Start()
         {
             _handlerHub = new HandlerHub(gameObject);
+            var gameObjectRepo = new GameObjectRepo();
             var gameMenuControls = new GameMenuControls();
             var optionMenuControls = new OptionMenuControls();
             var generalControls = new GeneralControls();
 
 
-            _moduleModuleManager.LoadCore(_handlerHub, gameMenuControls, optionMenuControls, generalControls, () => _oldGameState, () => _newGameState);
+            _moduleModuleManager.LoadCore(gameObjectRepo, _handlerHub, gameMenuControls, optionMenuControls, generalControls, () => _oldGameState, () => _newGameState);
             _moduleModuleManager.LoadModules(_handlerHub);
 
             var startUpHandler = new StartUpHandler(generalControls);
