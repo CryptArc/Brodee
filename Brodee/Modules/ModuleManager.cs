@@ -60,6 +60,7 @@ namespace Brodee.Modules
                 {
                     Logger.AppendLine($"You have no ModuleInstallers in the {module.Key} Assembly");
                 }
+                //TODO: Do actual module loading
             }
         }
     }

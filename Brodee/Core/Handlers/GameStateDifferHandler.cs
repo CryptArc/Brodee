@@ -20,6 +20,14 @@ namespace Brodee.Core.Handlers
                 _handlerHub.AddTrigger(new OptionsMenuOpenedTrigger());
             if (!previous.BrodeeMenuOpen && next.BrodeeMenuOpen)
                 _handlerHub.AddTrigger(new BrodeeMenuOpenedTrigger());
+
+            var gameState = global::GameState.Get();
+            if (gameState != null)
+            {
+                var friendlyPlayer = gameState.GetFriendlySidePlayer();
+                var opposingPlayer = gameState.GetOpposingSidePlayer();
+
+            }
         }
     }
 }

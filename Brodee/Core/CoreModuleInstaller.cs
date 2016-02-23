@@ -40,6 +40,7 @@ namespace Brodee.Core
             var allScenes = Scene.Hub | Scene.GamePlay | Scene.Collection | Scene.PackOpening | Scene.Tournament | Scene.Friendly | Scene.Draft | Scene.Adventure | Scene.TavernBrawl;
             handlerHub.Register(new GameStateUpdateHandler(_oldGameStateFunc, _newGameStateFunc), HowOftenToProcess.EveryFrame, allScenes);
             handlerHub.Register(new GameStateDifferHandler(_handlerHub), HowOftenToProcess.EveryFrame, allScenes);
+            handlerHub.Register(new TweenAdjusterHandler(), HowOftenToProcess.EveryFrame, allScenes);
 
             handlerHub.RegisterOnTrigger<OpenBrodeeMenuTrigger>(new BrodeeOptionsMenuHandler(_optionMenuControls, _gameObjectRepo), Scene.Hub);
             handlerHub.RegisterOnTrigger<SliderAttemptTrigger>(new CardTileAttemptHandler(), Scene.Hub);

@@ -64,6 +64,7 @@
     <Compile Include="Core\Handlers\GameStateDifferHandler.cs" />
     <Compile Include="Core\Handlers\GameStateUpdateHandler.cs" />
     <Compile Include="Core\Handlers\StartUpHandler.cs" />
+    <Compile Include="Core\Handlers\TweenAdjusterHandler.cs" />
     <Compile Include="Modules\ModuleManager.cs" />
     <Compile Include="Modules\ModuleInstaller.cs" />
     <Compile Include="Modules\Config.cs" />
