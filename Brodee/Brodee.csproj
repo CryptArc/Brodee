@@ -35,32 +35,33 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\Program Files (x86)\Hearthstone\Hearthstone_Data\Managed\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>X:\Games\Hearthstone\Hearthstone_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\Program Files (x86)\Hearthstone\Hearthstone_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>X:\Games\Hearthstone\Hearthstone_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net35\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="PlayMaker">
-      <HintPath>..\..\..\Program Files (x86)\Hearthstone\Hearthstone_Data\Managed\PlayMaker.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <HintPath>H:\Games\Hearthstone\Hearthstone_Data\Managed\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\Program Files (x86)\Hearthstone\Hearthstone_Data\Managed\UnityEngine.dll</HintPath>
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>X:\Games\Hearthstone\Hearthstone_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BrodeeState.cs" />
     <Compile Include="Components\GameObjectRepo.cs" />
     <Compile Include="Core\CoreModuleInstaller.cs" />
+    <Compile Include="Core\Handlers\CardStuff.cs" />
     <Compile Include="Core\Handlers\GameStateDifferHandler.cs" />
     <Compile Include="Core\Handlers\GameStateUpdateHandler.cs" />
     <Compile Include="Core\Handlers\StartUpHandler.cs" />
