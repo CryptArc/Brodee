@@ -10,7 +10,7 @@ namespace Brodee.HandlersDump
         {
             var cdt = CollectionDeckTray.Get();
             var collectionMgr = CollectionManager.Get();
-            var rdmDeck = collectionMgr.GetDecks().Values.First().CreateRDMFromDeckString(File.ReadAllText("H:\\deck.txt"));
+            var rdmDeck = collectionMgr.GetDecks().Values.First().GetDeckFillFromString(File.ReadAllText("H:\\deck.txt"));
             cdt.PopulateDeck(rdmDeck);
         }
     }

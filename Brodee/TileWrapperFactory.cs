@@ -21,7 +21,7 @@ namespace Brodee
                 Count = count,
                 Index = 0,
                 OnSlotEmptied = slot => { },
-                Premium = CardFlair.DEFAULT_PREMIUM_TYPE
+                Premium = TAG_PREMIUM.GOLDEN
             };
             newTileVisual.SetSlot(deckSlot, false);
             newTileObj.transform.SetParent(holderGameObject.transform);

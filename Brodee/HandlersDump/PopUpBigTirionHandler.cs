@@ -9,7 +9,6 @@ namespace Brodee.HandlersDump
         {
             var cardDef = DefLoader.Get().GetCardDef("EX1_383");
             var entDef = DefLoader.Get().GetEntityDef("EX1_383");
-            var cardFlair = new CardFlair(CardFlair.DEFAULT_PREMIUM_TYPE);
             var sourcePos = new Vector3(0, 0, 0);
             if (cardDef == null || entDef == null)
             {
@@ -21,7 +20,7 @@ namespace Brodee.HandlersDump
             }
             else
             {
-                CollectionDeckTray.Get().GetDeckBigCard().Show(entDef, cardFlair, cardDef, sourcePos, false);
+                CollectionDeckTray.Get().GetDeckBigCard().Show(entDef, TAG_PREMIUM.GOLDEN, cardDef, sourcePos, false);
             }
             
         }

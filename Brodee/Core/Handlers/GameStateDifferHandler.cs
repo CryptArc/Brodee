@@ -1,5 +1,7 @@
-﻿using Brodee.Components;
+﻿using System.Collections.Generic;
+using Brodee.Components;
 using Brodee.Triggers;
+using HutongGames.PlayMaker.Actions;
 
 namespace Brodee.Core.Handlers
 {
@@ -21,13 +23,6 @@ namespace Brodee.Core.Handlers
             if (!previous.BrodeeMenuOpen && next.BrodeeMenuOpen)
                 _handlerHub.AddTrigger(new BrodeeMenuOpenedTrigger());
 
-            var gameState = global::GameState.Get();
-            if (gameState != null)
-            {
-                var friendlyPlayer = gameState.GetFriendlySidePlayer();
-                var opposingPlayer = gameState.GetOpposingSidePlayer();
-
-            }
         }
     }
 }

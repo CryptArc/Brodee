@@ -75,7 +75,7 @@ namespace Brodee.Components
                     Count = tile.Count,
                     Index = 0,
                     OnSlotEmptied = slot => { },
-                    Premium = CardFlair.DEFAULT_PREMIUM_TYPE
+                    //Premium = CardFlair.DEFAULT_PREMIUM_TYPE
                 };
                 tile.Tile.SetSlot(deckSlot, false);
             }

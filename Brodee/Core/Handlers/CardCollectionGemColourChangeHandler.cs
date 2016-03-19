@@ -8,19 +8,18 @@ namespace Brodee.Core.Handlers
     {
         public override void SpecificHandle(IGameState previous, IGameState next)
         {
-            var ownedCardStacks = CollectionManager.Get().GetOwnedCardStacks();
-            foreach (var collectionCardStack in ownedCardStacks)
+            var ownedCardStacks = CollectionManager.Get().GetOwnedCards();
+
+            foreach (var collectibleCard in ownedCardStacks)
             {
-                foreach (var keyValuePair in collectionCardStack.GetArtStacks())
+                var cardVisual = CollectionManagerDisplay.Get().m_pageManager.GetCardVisual(collectibleCard.CardId, collectibleCard.PremiumType);
+                //Logger.AppendLine($"CardID:{keyValuePair.Value.CardID} OnPage:{cardVisual != null}");
+                if (cardVisual != null)
                 {
-                    var cardVisual = CollectionManagerDisplay.Get().m_pageManager.GetCardVisual(keyValuePair.Value.CardID, keyValuePair.Value.Flair);
-                    //Logger.AppendLine($"CardID:{keyValuePair.Value.CardID} OnPage:{cardVisual != null}");
-                    if (cardVisual != null)
-                    {
-                        cardVisual.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.SetColor("_TintColor", Color.green);
-                    }
+                    cardVisual.GetActor()?.m_rarityGemMesh?.GetComponent<Renderer>()?.material?.SetColor("_TintColor", Color.green);
                 }
             }
+
         }
     }
 }

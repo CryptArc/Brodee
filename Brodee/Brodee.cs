@@ -1,4 +1,5 @@
-﻿using Brodee.Components;
+﻿using System.Reflection;
+using Brodee.Components;
 using Brodee.Controls;
 using Brodee.Core.Handlers;
 using Brodee.Modules;
@@ -41,6 +42,7 @@ namespace Brodee
 
         private void Start()
         {
+            
             _handlerHub = new HandlerHub(gameObject);
             var gameObjectRepo = new GameObjectRepo();
             var gameMenuControls = new GameMenuControls();
