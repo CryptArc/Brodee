@@ -1,26 +1,23 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Brodee.Components;
 
 namespace Brodee.Core.Handlers
 {
     public class TweenAdjusterHandler : Handler
     {
-        readonly HashSet<iTween> _iTweens = new HashSet<iTween>();
         public override void SpecificHandle(IGameState previous, IGameState next)
         {
-            var iTweenIt = iTweenManager.GetIterator();
-            iTween current = iTweenIt.GetNext();
-            while (current != null)
-            {
-                if (!_iTweens.Contains(current))
-                {
-                    current.time /= 2.0f;
-                    _iTweens.Add(current);
-                }
-                current = iTweenIt.GetNext();
-            }
 
-            _iTweens.RemoveWhere(x => x.destroyed);
+            var cards = global::GameState.Get()?.GetFriendlySidePlayer()?.GetBattlefieldZone()?.GetCards();
+            if (cards != null)
+            {
+                foreach (var card in cards)
+                {
+                    CardStuff.SetAllAnimationSpeed(card, 10f);
+                }
+            }
         }
     }
 }
