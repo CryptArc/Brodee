@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Brodee
+﻿namespace Brodee
 {
     public interface IGameState
     {
@@ -10,8 +8,7 @@ namespace Brodee
         bool QuestLogOpen { get; }
         bool BrodeeMenuOpen { get; set; }
 
-        IEnumerable<Core.Card> FriendlyPlayedCards { get; }
-        IEnumerable<Core.Card> OpposingPlayedCards { get; }
+        IMatchState MatchState { get; }
     }
 
     public class GameState : IGameState
@@ -23,15 +20,7 @@ namespace Brodee
         public bool BrodeeMenuOpen { get; set; }
         public bool QuestLogOpen { get; set; }
 
-        IEnumerable<Core.Card> IGameState.FriendlyPlayedCards => FriendlyPlayedCards;
-        IEnumerable<Core.Card> IGameState.OpposingPlayedCards => OpposingPlayedCards;
-        public List<Core.Card> FriendlyPlayedCards { get; set; }
-        public List<Core.Card> OpposingPlayedCards { get; set; }
-
-        public GameState()
-        {
-            FriendlyPlayedCards = new List<Core.Card>();
-            OpposingPlayedCards = new List<Core.Card>();
-        }
+        public MatchState MatchState { get; set; }
+        IMatchState IGameState.MatchState => MatchState;
     }
 }

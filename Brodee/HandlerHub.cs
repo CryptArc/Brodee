@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Brodee.Components;
-using Brodee.HandlersDump;
 using Brodee.Triggers;
 using UnityEngine;
 
@@ -21,39 +20,31 @@ namespace Brodee
 
     public interface IHandlerHub
     {
-        void RegisterOnTrigger<T>(Handler handler, Scene scene) where T : Trigger;
+        void RegisterOnTrigger<T>(TriggerHandler<T> handler) where T : Trigger;
         void Register(Handler handler, HowOftenToProcess howOftenToProcess, Scene scene);
     }
 
     public class HandlerHub : IHandlerHub
     {
-        private readonly GameObject _parent;
-        private readonly Dictionary<Type, List<HandlerItem>> _triggerHandlers = new Dictionary<Type, List<HandlerItem>>();
+        private readonly Dictionary<Type, List<ITriggerHandler>> _triggerHandlers = new Dictionary<Type, List<ITriggerHandler>>();
         private readonly List<HandlerItem> _perSecondHandlers = new List<HandlerItem>();
         private readonly List<HandlerItem> _perFrameHandlers = new List<HandlerItem>();
-        private readonly Queue<object> _triggersQueue = new Queue<object>();
+        private readonly Queue<Trigger> _triggersQueue = new Queue<Trigger>();
 
         private DateTime _nextPerSecondTime = DateTime.MinValue;
 
-        public HandlerHub(GameObject parent)
-        {
-            _parent = parent;
-        }
-
-        public void RegisterOnTrigger<T>(Handler handler, Scene scene) where T : Trigger
+        public void RegisterOnTrigger<T>(TriggerHandler<T> handler) where T : Trigger
         {
             var type = typeof(T);
             if (!_triggerHandlers.ContainsKey(type))
             {
-                _triggerHandlers.Add(type, new List<HandlerItem>());
+                _triggerHandlers.Add(type, new List<ITriggerHandler>());
             }
-            handler.Setup(_parent);
-            _triggerHandlers[type].Add(new HandlerItem(handler, scene));
+            _triggerHandlers[type].Add(handler);
         }
 
         public void Register(Handler handler, HowOftenToProcess howOftenToProcess, Scene scene)
         {
-            handler.Setup(_parent);
             if (howOftenToProcess == HowOftenToProcess.Never || scene == Scene.None)
                 return; //Protect against default enums
 
@@ -68,19 +59,21 @@ namespace Brodee
             }
         }
 
-        public void AddTrigger(object trigger)
+        public void AddTrigger(Trigger trigger)
         {
             _triggersQueue.Enqueue(trigger);
         }
 
         public void ProcessActions(IGameState previous, IGameState next)
         {
-            List<HandlerItem> handlerList;
+            List<ITriggerHandler> handlerList;
 
             foreach (var perFrameHandler in _perFrameHandlers)// PerFrame Handlers
             {
                 if (perFrameHandler.Scene.IsSet(next.Mode))
+                {
                     ExecuteHandler(perFrameHandler, previous, next);
+                }
             }
 
             while (_triggersQueue.Count > 0) // Triggers
@@ -92,12 +85,7 @@ namespace Brodee
                 {
                     foreach (var handlerItem in handlerList)
                     {
-                        Logger.AppendLine($"Attempting to handler:{handlerItem.Handler.GetType()}");
-                        if (handlerItem.Scene.IsSet(next.Mode))
-                        {
-                            Logger.AppendLine($"Executing handler:{handlerItem.Handler.GetType()}");
-                            ExecuteHandler(handlerItem, previous, next);
-                        }
+                        ExecuteTriggerHandler(handlerItem, trigger, next);
                     }
                 }
             }
@@ -122,6 +110,18 @@ namespace Brodee
             catch (Exception e)
             {
                 Logger.AppendLine($"Error handling handler:{handlerItem.Handler.GetType()}");
+                Logger.AppendLine(e.ToString());
+            }
+        }
+        private void ExecuteTriggerHandler(ITriggerHandler triggerHandler, Trigger trigger, IGameState next)
+        {
+            try
+            {
+                triggerHandler.Handle(trigger, next);
+            }
+            catch (Exception e)
+            {
+                Logger.AppendLine($"Error handling triggerHandler:{triggerHandler.GetType()}");
                 Logger.AppendLine(e.ToString());
             }
         }

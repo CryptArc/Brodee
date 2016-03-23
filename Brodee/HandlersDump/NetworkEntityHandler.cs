@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using Brodee.Components;
 using Brodee.Triggers;
 using PegasusGame;
-using UnityEngine;
 
 namespace Brodee.HandlersDump
 {
     public class NetworkEntityHandler : Handler
     {
-        private GameObject _parent;
-
         private readonly Queue<string> _cardIdsReceived = new Queue<string>();
 
-        public override void Setup(GameObject parent)
+        public NetworkEntityHandler()
         {
-            base.Setup(parent);
             Network.Get().RegisterNetHandler(PowerHistory.PacketID.ID, OnPowerHistory);
         }
 

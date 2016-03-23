@@ -1,10 +1,11 @@
 ﻿using Brodee.Components;
 using Brodee.Controls;
+using Brodee.Triggers;
 using UnityEngine;
 
 namespace Brodee.Core.Handlers
 {
-    public class BrodeeOptionsMenuHandler : Handler
+    public class BrodeeOptionsMenuHandler : TriggerHandler<OpenBrodeeMenuTrigger>
     {
         private readonly IOptionMenuControls _optionMenuControls;
         private readonly GameObjectRepo _gameObjectRepo;
@@ -15,7 +16,7 @@ namespace Brodee.Core.Handlers
             _gameObjectRepo = gameObjectRepo;
         }
 
-        public override void SpecificHandle(IGameState previous, IGameState next)
+        public override void SpecificHandle(OpenBrodeeMenuTrigger trigger, IGameState next)
         {
             GameMenu.Get().ShowOptionsMenu();
             GameObject settingsWindow;
@@ -41,7 +42,6 @@ namespace Brodee.Core.Handlers
             }
 
             OptionsMenu.Get().Hide(false);
-
         }
     }
 }

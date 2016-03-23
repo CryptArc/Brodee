@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Brodee.Components;
+﻿using Brodee.Components;
 using Brodee.Controls;
 using Brodee.Core.Handlers;
 using Brodee.Modules;
@@ -18,11 +17,11 @@ namespace Brodee
 
         private void LateUpdate()
         {
+
+            _oldGameState = _newGameState;
             _newGameState = new GameState();
 
             _handlerHub.ProcessActions(_oldGameState, _newGameState);
-
-            _oldGameState = _newGameState;
 
             if (Input.GetKeyDown(KeyCode.F12))
             {
@@ -42,8 +41,7 @@ namespace Brodee
 
         private void Start()
         {
-            
-            _handlerHub = new HandlerHub(gameObject);
+            _handlerHub = new HandlerHub();
             var gameObjectRepo = new GameObjectRepo();
             var gameMenuControls = new GameMenuControls();
             var optionMenuControls = new OptionMenuControls();
@@ -59,7 +57,11 @@ namespace Brodee
         }
 
         private void Awake() => _oldGameState = new GameState();
-        private void OnDestroy() => Logger.AppendLine("Brodee.OnDestroy()");
+
+        private void OnDestroy()
+        {
+            Logger.AppendLine("Brodee.OnDestroy()");
+        }
     }
 }
 

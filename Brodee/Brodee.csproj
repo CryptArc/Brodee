@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="BrodeeState.cs" />
     <Compile Include="Components\GameObjectRepo.cs" />
+    <Compile Include="Components\TriggerHandler.cs" />
     <Compile Include="Core\Card.cs" />
     <Compile Include="Core\CoreModuleInstaller.cs" />
     <Compile Include="Core\Handlers\CardStuff.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Core\Handlers\GameStateUpdateHandler.cs" />
     <Compile Include="Core\Handlers\StartUpHandler.cs" />
     <Compile Include="Core\Handlers\TweenAdjusterHandler.cs" />
+    <Compile Include="MatchState.cs" />
     <Compile Include="Modules\ModuleManager.cs" />
     <Compile Include="Modules\ModuleInstaller.cs" />
     <Compile Include="Modules\Config.cs" />
@@ -89,7 +91,6 @@
     <Compile Include="HowOftenToProcess.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="HandlersDump\SettingsButtonHandler.cs" />
-    <Compile Include="HandlersDump\SettingsMenuHandler.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Brodee.cs" />
     <Compile Include="HandlerHub.cs" />
@@ -105,8 +106,10 @@
     <Compile Include="TileWrapperFactory.cs" />
     <Compile Include="Triggers\BrodeeMenuOpenedTrigger.cs" />
     <Compile Include="Triggers\CardCollectionTrigger.cs" />
+    <Compile Include="Triggers\CardPlayedTrigger.cs" />
     <Compile Include="Triggers\CreateFlyingCubesTrigger.cs" />
     <Compile Include="Triggers\GameMenuOpenedTrigger.cs" />
+    <Compile Include="Triggers\GameStateModeChangedTrigger.cs" />
     <Compile Include="Triggers\NetworkEntityTrigger.cs" />
     <Compile Include="Triggers\F12PressedTrigger.cs" />
     <Compile Include="Triggers\OpenBrodeeMenuTrigger.cs" />

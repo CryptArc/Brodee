@@ -4,7 +4,7 @@ using Brodee.Triggers;
 
 namespace Brodee.Core.Handlers
 {
-    public class CreateSettingsButtonInGameMenuHandler : Handler
+    public class CreateSettingsButtonInGameMenuHandler : TriggerHandler<GameMenuOpenedTrigger>
     {
         private readonly GameMenuControls _gameMenuControls;
         private readonly GeneralControls _generalControls;
@@ -17,7 +17,7 @@ namespace Brodee.Core.Handlers
             _handlerHub = handlerHub;
         }
 
-        public override void SpecificHandle(IGameState previous, IGameState next)
+        public override void SpecificHandle(GameMenuOpenedTrigger trigger, IGameState next)
         {
             if (!_gameMenuControls.IsButtonContainerAvailable())
             {

@@ -38,13 +38,14 @@ namespace Brodee.Core
         public void Install(IHandlerHub handlerHub)
         {
             var allScenes = Scene.Hub | Scene.GamePlay | Scene.Collection | Scene.PackOpening | Scene.Tournament | Scene.Friendly | Scene.Draft | Scene.Adventure | Scene.TavernBrawl;
-            handlerHub.Register(new GameStateUpdateHandler(_oldGameStateFunc, _newGameStateFunc), HowOftenToProcess.EveryFrame, allScenes);
+
+            handlerHub.Register(new GameStateUpdateHandler(_newGameStateFunc), HowOftenToProcess.EveryFrame, allScenes);
             handlerHub.Register(new GameStateDifferHandler(_handlerHub), HowOftenToProcess.EveryFrame, allScenes);
             handlerHub.Register(new TweenAdjusterHandler(), HowOftenToProcess.EveryFrame, allScenes);
 
-            handlerHub.RegisterOnTrigger<OpenBrodeeMenuTrigger>(new BrodeeOptionsMenuHandler(_optionMenuControls, _gameObjectRepo), Scene.Hub);
-            handlerHub.RegisterOnTrigger<SliderAttemptTrigger>(new CardTileAttemptHandler(), Scene.Hub);
-            handlerHub.RegisterOnTrigger<GameMenuOpenedTrigger>(new CreateSettingsButtonInGameMenuHandler(_gameMenuControls, _generalControls, _handlerHub), Scene.Hub);
+            handlerHub.RegisterOnTrigger(new BrodeeOptionsMenuHandler(_optionMenuControls, _gameObjectRepo));
+            handlerHub.RegisterOnTrigger(new CardTileAttemptHandler());
+            handlerHub.RegisterOnTrigger(new CreateSettingsButtonInGameMenuHandler(_gameMenuControls, _generalControls, _handlerHub));
 
             handlerHub.Register(new CardHandGemColourChangeHandler(), HowOftenToProcess.EverySecond, Scene.GamePlay);
             handlerHub.Register(new CardCollectionGemColourChangeHandler(), HowOftenToProcess.EverySecond, Scene.Collection);
