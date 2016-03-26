@@ -63,6 +63,7 @@
     <Compile Include="Components\TriggerHandler.cs" />
     <Compile Include="Core\Card.cs" />
     <Compile Include="Core\CoreModuleInstaller.cs" />
+    <Compile Include="Core\Handlers\AutoSquelchHandler.cs" />
     <Compile Include="Core\Handlers\CardStuff.cs" />
     <Compile Include="Core\Handlers\GameStateDifferHandler.cs" />
     <Compile Include="Core\Handlers\GameStateUpdateHandler.cs" />
