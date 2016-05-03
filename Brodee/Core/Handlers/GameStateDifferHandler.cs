@@ -25,23 +25,27 @@ namespace Brodee.Core.Handlers
             if (previous.Mode != next.Mode)
                 _handlerHub.AddTrigger(new GameStateModeChangedTrigger(next.Mode));
 
-            if (next.MatchState.FriendlyPlayedCards.Count() != previous.MatchState.FriendlyPlayedCards.Count())
+            if (next.MatchState != null)
             {
-                Logger.AppendLine($"next.FriendlyPlayedCards.Count:{next.MatchState.FriendlyPlayedCards.Count()} previous.FriendlyPlayedCards.Count:{previous.MatchState.FriendlyPlayedCards.Count()}");
-            }
-            foreach (var playedCard in next.MatchState.FriendlyPlayedCards)
-            {
-                if (previous.MatchState.FriendlyPlayedCards.All(x => x.EntityId != playedCard.EntityId))
+                if (next.MatchState.FriendlyPlayedCards.Count() != previous.MatchState.FriendlyPlayedCards.Count())
                 {
-                    Logger.AppendLine($"FriendPlayedCard:{playedCard.Name}");
+                    Logger.AppendLine(
+                        $"next.FriendlyPlayedCards.Count:{next.MatchState.FriendlyPlayedCards.Count()} previous.FriendlyPlayedCards.Count:{previous.MatchState.FriendlyPlayedCards.Count()}");
                 }
-            }
-
-            foreach (var playedCard in next.MatchState.OpposingPlayedCards)
-            {
-                if (previous.MatchState.OpposingPlayedCards.All(x => x.EntityId != playedCard.EntityId))
+                foreach (var playedCard in next.MatchState.FriendlyPlayedCards)
                 {
-                    Logger.AppendLine($"OpposingPlayedCard:{playedCard.Name}");
+                    if (previous.MatchState.FriendlyPlayedCards.All(x => x.EntityId != playedCard.EntityId))
+                    {
+                        Logger.AppendLine($"FriendPlayedCard:{playedCard.Name}");
+                    }
+                }
+
+                foreach (var playedCard in next.MatchState.OpposingPlayedCards)
+                {
+                    if (previous.MatchState.OpposingPlayedCards.All(x => x.EntityId != playedCard.EntityId))
+                    {
+                        Logger.AppendLine($"OpposingPlayedCard:{playedCard.Name}");
+                    }
                 }
             }
 

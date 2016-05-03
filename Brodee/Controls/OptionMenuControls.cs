@@ -4,45 +4,50 @@ namespace Brodee.Controls
 {
     public interface IOptionMenuControls
     {
-        bool IsSliderAvailable();
-        bool IsCheckBoxAvailable();
         GameObject CreateCheckboxCopy();
+        GameObject CreateButtonCopy();
         GameObject CreateSliderCopy();
         GameObject CreateBareSettingWindow();
     }
 
     public class OptionMenuControls : IOptionMenuControls
     {
-        public bool IsSliderAvailable()
-        {
-            return OptionsMenu.Get()?.m_musicVolume != null;
-        }
-
-        public bool IsCheckBoxAvailable()
-        {
-            return OptionsMenu.Get()?.m_fullScreenCheckbox != null;
-        }
-
         public GameObject CreateCheckboxCopy()
         {
-            if (!IsCheckBoxAvailable())
+            if (OptionsMenu.Get()?.m_fullScreenCheckbox == null)
                 return null;
 
             var checkBoxOrigGameObject = OptionsMenu.Get()?.m_fullScreenCheckbox.gameObject;
 
-            var copy = Object.Instantiate(checkBoxOrigGameObject) as GameObject;
+            var copy = Object.Instantiate(checkBoxOrigGameObject);
             copy.transform.localPosition = checkBoxOrigGameObject.transform.position;
 
             return copy;
         }
 
+        public GameObject CreateButtonCopy()
+        {
+            if (OptionsMenu.Get()?.m_creditsButton == null)
+                return null;
+
+            var buttonOrigGameObject = OptionsMenu.Get().m_creditsButton.gameObject;
+
+            var buttonCopy = Object.Instantiate(buttonOrigGameObject);
+            if (!UiInterface.TryPopulateOrAdd("New Button", buttonCopy, buttonOrigGameObject))
+            {
+                buttonCopy.transform.localScale = new Vector3(40.0f, 1.0f, 40.0f);
+                UiInterface.UpdateOrAdd(buttonCopy.name, buttonCopy);
+            }
+            
+            return buttonCopy;
+        }
+
         public GameObject CreateSliderCopy()
         {
-            if (!IsSliderAvailable())
+            if (OptionsMenu.Get()?.m_musicVolume == null)
                 return null;
-            var soundSlider = OptionsMenu.Get()?.m_musicVolume;
+            var soundSlider = OptionsMenu.Get().m_musicVolume;
             var soundSliderOrigGameObject = soundSlider.gameObject;
-            //Helper.LogGameObjectComponents(soundSliderOrigGameObject);
             var sliderCopy = Object.Instantiate(soundSliderOrigGameObject);
             if (!UiInterface.TryPopulateOrAdd("New Slider", sliderCopy, soundSliderOrigGameObject))
             {
@@ -81,8 +86,13 @@ namespace Brodee.Controls
                 newGameObject.transform.localRotation = new Quaternion(origLocalRotation.x, origLocalRotation.y, origLocalRotation.z, origLocalRotation.w);
                 newGameObject.transform.rotation = new Quaternion(origRotation.x, origRotation.y, origRotation.z, origRotation.w);
             }
-            Object.Destroy(myOptions.GetChildObjectContainingName("InputBlocker"));
-            Object.Destroy(myOptions.GetChildObjectContainingName("MenuClickArea"));
+            //Object.Destroy(myOptions.GetChildObjectContainingName("InputBlocker"));
+            var inputBlocker = myOptions.GetChildObjectContainingName("InputBlocker").GetComponent<PegUIElement>();
+            inputBlocker.AddEventListener(UIEventType.RELEASE, delegate {
+                myOptions.SetActive(false);
+                OptionsMenu.Get().Show();
+            });
+            //Object.Destroy(myOptions.GetChildObjectContainingName("MenuClickArea"));
             var windowContents = myOptions.GetChildObjectContainingName("WindowContents");
             windowContents.SetActive(false);
 

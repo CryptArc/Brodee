@@ -91,12 +91,17 @@ namespace Brodee
     {
         private static readonly Dictionary<string, UiInterfaceObject> InterfaceObjects = new Dictionary<string, UiInterfaceObject>();
 
+        private static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings()
+        {
+            Formatting = Formatting.Indented
+        };
+
         static UiInterface()
         {
             if (File.Exists("config.json"))
             {
                 var json = File.ReadAllText("config.json");
-                var array = JsonConvert.DeserializeObject<UiInterfaceObject[]>(json);
+                var array = JsonConvert.DeserializeObject<UiInterfaceObject[]>(json, JsonSerializerSettings);
                 foreach (var uiInterfaceObject in array)
                 {
                     InterfaceObjects.Add(uiInterfaceObject.Name, uiInterfaceObject);
@@ -106,7 +111,7 @@ namespace Brodee
 
         static void WriteConfig()
         {
-            var json = JsonConvert.SerializeObject(InterfaceObjects.Values.ToArray());
+            var json = JsonConvert.SerializeObject(InterfaceObjects.Values.ToArray(), JsonSerializerSettings);
             File.WriteAllText("config.json", json);
         }
 
@@ -123,7 +128,7 @@ namespace Brodee
             newGameObject.name = name;
             if (InterfaceObjects.TryGetValue(name, out uiInterfaceObject))
             {
-                Logger.AppendLine($"UiInterfaceObject:{name}, recall positions, LocalPos:{uiInterfaceObject.LocalPositionX}");
+                Logger.AppendLine($"UiInterfaceObject:{name}, recall positions, LocalPosX:{uiInterfaceObject.LocalPositionX} LocalPosY:{uiInterfaceObject.LocalPositionY} LocalPosZ:{uiInterfaceObject.LocalPositionZ}");
                 newGameObject.transform.localPosition = new Vector3(uiInterfaceObject.LocalPositionX,
                     uiInterfaceObject.LocalPositionY, uiInterfaceObject.LocalPositionZ);
                 newGameObject.transform.localScale = new Vector3(uiInterfaceObject.LocalScaleX,

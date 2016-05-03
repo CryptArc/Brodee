@@ -14,8 +14,8 @@ namespace Brodee.HandlersDump
 
         public override void SpecificHandle(IGameState previous, IGameState next)
         {
-            if (!_optionMenuControls.IsSliderAvailable())
-                return;
+            //if (!_optionMenuControls.IsSliderAvailable())
+            //    return;
 
             var sliderCopy = _optionMenuControls.CreateSliderCopy();
 

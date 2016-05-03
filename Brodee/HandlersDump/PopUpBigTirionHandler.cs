@@ -20,9 +20,9 @@ namespace Brodee.HandlersDump
             }
             else
             {
-                CollectionDeckTray.Get().GetDeckBigCard().Show(entDef, TAG_PREMIUM.GOLDEN, cardDef, sourcePos, false);
+                CollectionDeckTray.Get().GetDeckBigCard().Show(entDef, TAG_PREMIUM.GOLDEN, cardDef, sourcePos, GhostCard.Type.NONE);
             }
-            
+
         }
     }
 }

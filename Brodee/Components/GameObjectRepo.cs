@@ -21,8 +21,8 @@ namespace Brodee.Components
                     _gameObjects.Remove(name);
                     return false;
                 }
+                return true;
             }
-            gameObject = null;
             return false;
         }
     }

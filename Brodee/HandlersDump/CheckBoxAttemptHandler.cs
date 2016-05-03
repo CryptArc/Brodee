@@ -14,8 +14,8 @@ namespace Brodee.HandlersDump
 
         public override void SpecificHandle(IGameState previous, IGameState next)
         {
-            if (!_optionMenuControls.IsCheckBoxAvailable())
-                return;
+            //if (!_optionMenuControls.IsCheckBoxAvailable())
+            //    return;
 
             var checkboxCopy = _optionMenuControls.CreateCheckboxCopy();
 
