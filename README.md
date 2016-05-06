@@ -1,5 +1,5 @@
 # Brodee
-In-Game Addon(s) for Hearthstone
+In-Game Addon(s) and tweaks for Hearthstone. This is expected to 'fix' things, and allow for changes which are inline with blizzards asthetics. 
 
 ## Features
 
@@ -10,7 +10,8 @@ In-Game Addon(s) for Hearthstone
 * Options menu for brodee
 * Gem colour changing
 * Shortening spell and attack animation
-* Creating any card in UI
+* Import Deck from string
+* Deck creation 'tile' in-game(like deck tracking)
 
 ### Would like to do
 In general, aiming for accessibility things first such as colour-blind options and keyboard inputs.
