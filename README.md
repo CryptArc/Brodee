@@ -1,6 +1,19 @@
 # Brodee
 In-Game Addon(s) and tweaks for Hearthstone. This is expected to 'fix' things, and allow for changes which are inline with blizzards asthetics. Brodee does not alter any Hearthstone files, although it does inject into the Unity AppDomain. Use at your own discretion. 
 
+### Development "Rules"
+* Nothing should automate something else. 
+    * Currently Deck trackers/importers copy/paste and screen click which is automation which is a "bad thing. 
+    * This could mean something as simple as auto-squelch is automation
+* Hearthstone asthetic should hold even with addition UI elements.
+    * Blizzard devs have stated at talks and online that the UI really matters to them for many reasons. Ruining the UI for the sake of features is something the devs do not want, and nor do I.
+* Do not touch the store
+
+
+### Other Development considerations
+* Should text allowed to be altered? ala [Orphans?](https://www.reddit.com/r/hearthstone/comments/4hhznz/orphans_in_hearthstone/?ref=search_posts)
+* Should touching of battle.net and related things be allowed?
+
 ## Features
 
 ### Done
